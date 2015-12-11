@@ -1,0 +1,12 @@
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+keycode  22 = Escape
+keycode  36 = grave asciitilde
+keycode  49 = BackSpace
+keycode  50 = backslash bar brokenbar
+keycode  95 = BackSpace
+

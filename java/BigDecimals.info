@@ -1,0 +1,176 @@
+BigDecimals are Immutable, arbitrary-precision signed decimal
+numbers.  A BigDecimal consists of an arbitrary precision integer
+unscaled value and a non-negative 32-bit integer scale which
+reprsents the number of digits to the right of the decimal point.
+
+This information is current from Java 1.2.2 through 1.4.1.
+
+This file is intended to complement BigDecimals.java.  Neither one
+is a complete replacement for the other.
+
+--- IMPORT STATEMENT ---
+import java.math.*;
+
+--- FIELDS ---
+Certain BigDecimal operations cause loss of precision.  In these
+cases, a particular sort of rounding is likely desired.  The
+possible rounding methods are static fields in the BigDecimal class.
+
+Here they are:
+
+BigDecimal.ROUND_UP
+    Always round away from zero.
+BigDecimal.ROUND_DOWN
+    Always round towards zero.
+BigDecimal.ROUND_CEILING
+    Always round towards positive infinity.
+BigDecimal.ROUND_FLOOR
+    Always round towards negative infinity.
+BigDecimal.ROUND_HALF_UP
+    Round towards nearest neighbour.  If equidistant, round away
+    from zero.  This is the rounding technique most of us were
+    taught in grade school.
+BigDecimal.ROUND_HALF_DOWN
+    Round towards nearest neighbour.  If equidistant, round towards
+    zero.
+BigDecimal.ROUND_HALF_EVEN
+    Round towards nearest neighbour.  If equidistant, round to make
+    the last digit even.  This mode does the same thing as a C
+    printf() with a format string that causes rounding.  It is also
+    the mode that reduces errors most in ongoing calculations.
+BigDecimal.ROUND_UNNECESSARY 
+    The operation should have an exact result.  If it does not, an
+    ArithmeticException is thrown.
+
+--- CONSTRUCTORS ---
+
+BigDecimal(String val)
+    Preferred constructor for constant values.  Throws a
+    NumberFormatException if the string is not valid.  Note that the
+    optional +/- prefix and optional exponent suffix were addded in
+    Java 1.3.  Here are examples of valid numbers:
+
+        1
+        -1
+        1.2
+        +.2
+        1.
+        1e10
+        1E-10
+
+    Simple grammar ([] = optional, () = grouping, '' = literal):
+        BigDecimal := ['-' | '+'] <Number> [('e' | 'E') <SignedInt>]
+        Number := <Digits> '.' <Digits> |
+                  <Digits> '.' |
+                  '.' <Digits> |
+                  <Digits>
+        SignedInt := ['-' | '+'] <Digits>
+
+    The string should not contain extra characters, like whitespace.
+
+BigDecimal(double val)  throws NumberFormatException
+    Translates val to a BigDecimal using the smallest scale that
+    still retains all accuracy.  An exception will be thrown on
+    Infinity or NaN values.
+
+BigDecimal(BigInteger val)
+    Scale of resulting value is zero.
+
+BigDecimal(BigInteger unscaledVal, int scale)
+    Create a BigDecimal with scale of unscaledVal's digits to the
+    right of the decimal point.  NumberFormatException is thrown
+    if scale is negative.
+
+--- METHODS ---
+
+- Creation Methods -
+
+static BigDecimal valueOf(long val);
+    Create a BigDecimal with a scale of zero.
+static BigDecimal valueOf(long unscaledVal, int scale);
+    Create a BigDecimal using the given scale.
+
+- Ordinary Math Operations -
+
+BigDecimal add(BigDecimal val)
+BigDecimal subtract(BigDecimal val)
+BigDecimal multiply(BigDecimal val)
+    Resulting scale is this.scale()+val.scale().
+BigDecimal divide(BigDecimal val, int scale, int roundingMode)
+        throws ArithmeticException, IllegalArgumentException
+    Divides, rounding according to the rounding mode.  In addition
+    to exceptions thrown by ROUND_UNNECESSARY, exceptions will be
+    thrown for val==0, scale<0, and invalid rounding modes.  The
+    resulting scale will be as specified.
+BigDecimal divide(BigDecimal val, int roundingMode)
+    Equivalent to divide(val, this.scale(), roundingMode).
+
+BigDecimal abs()
+BigDecimal negate()
+
+BigDecimal max(BigDecimal val)
+BigDecimal min(BigDecimal val)
+
+- Comparison Operations -
+
+int compareTo(BigDecimal val)
+    Returns -1, 0, 1 if this is less than, equal to, greater than
+    val.  Use "x.compareTo(y) <op> 0" where op is the comparision
+    desired between x and y.  For example:
+        x < y  -->  x.compareTo(y) < 0
+    Scale is ignored, only numeric comparison is performed.
+boolean equals(Object x)
+    Returns true if x is a BitDecimal with the same numerical value
+    AND the same scale.
+int signum()
+    Returns -1, 0, 1 if this is negative, zero, positive.
+
+- Scale Manipulation Operations -
+
+BigDecimal movePointLeft(int n)
+    If n is positive, decimal point moves left.  If n is negative,
+    decimal point moves right.  Note that this is similar to
+    multiplying by 10^-n except the scale changes are handled more
+    gracefully.
+
+BigDecimal movePointRight(int n)
+    Opposite of movePointLeft.
+
+int scale()
+    Returns the current scale, ie the number of digits to the right
+    of the decimal point.
+
+BigDecimal setScale(scale)
+    Generally used to increase precision.  Throws an
+    ArithmeticException if the chosen scale forces rounding or if
+    the given scale is negative.  Note that this also returns a new
+    BigDecimal and does not modify the existing one.
+
+BigDecimal setScale(scale, roundingMode)
+    Increases precision or rounds to the given scale using the given
+    rounding mode.  Throws an exception if scale is negative, or the
+    rounding mode is invalid.  Note that this also returns a new
+    BigDecimal and does not modify the existing one.
+
+- Conversion to Other Types -
+
+double doubleValue()
+    If value is too small or too large, Double.NEGATIVE_INFINITY or
+    Double.POSITIVE_INFINITY are returned.
+float floatValue()
+    If value is too small or too large, Float.NEGATIVE_INFINITY or
+    Float.POSITIVE_INFINITY are returned.
+int intValue()
+    Fractional part is discarded and 32 low order bits are returned.
+    Note that a value of the opposite sign may appear.
+long longValue()
+    Fractional part is discarded and 64 low order bits are returned.
+    Note that a value of the opposite sign may appear.
+String toString()
+    Return a string as:  ['-'] <Digits> '.' <Digits> |
+                         ['-'] <Digits>
+BigInteger toBigInteger()
+    Fractional part is discarded.
+BigInteger unscaledValue()
+    Returns a BigInteger representing all of the digits in the
+    unscaled value of this BigDecimal.

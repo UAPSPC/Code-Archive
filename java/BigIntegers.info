@@ -1,0 +1,162 @@
+   BigInteger is an Immutable arbitrary-precision integer.
+   Operations behave as if they were represented in two's-complement
+   notation.
+
+   Unless otherwise indicated by a java version number in square
+   brackets, all of the methods are valid starting from Java 1.1.
+   This information is current up to Java 1.4.1.
+
+   --- IMPORT STATEMENT ---
+   import java.math.*;
+
+   --- FIELDS ---
+
+   [1.2]  BigInteger.ONE  - The BigInteger constant one.
+   [1.2]  BigInteger.ZERO - The BigInteger constant zero.
+
+   --- CONSTRUCTORS ---
+
+   - From Strings -
+
+   BigInteger(String val)  throws NumberFormatException
+   - Converts the decimal string into a BigInteger.   Throws an
+    exception if val is not a valid decimal string.  Whitespace is
+    not allowed.
+
+BigInteger(String val, int radix)  throws NumberFormatException
+    Converts the string represented in the specified radix into a
+    BigInteger.  An exception will occur if the string is invalid or
+    if the radix is not in the range of Character.MIN_RADIX and
+    Character.MAX_RADIX.
+
+   - From Byte Arrays -
+
+BigInteger(byte[] val)  throws NumberFormatException
+    Converts the two's-complement representation stored in val into
+    a BigInteger.  The array is in BigEndian order (val[0] is the
+    most significant byte). An exception will be thrown if the array
+    is of zero length.
+
+BigInteger(int signum, byte[] magnitude)
+        throws NumberFormatException
+    Given a sign (-1, 0, 1) and an array of bytes for a magnitude,
+    this constructor creates a BigInteger.   An exception will occur
+    if signum is not one of the three valid values or if signum is 0
+    and the magnitude contains non-zero bytes.
+
+--- METHODS ---
+
+- Creation Methods -
+
+static BigInteger valueOf(long val)
+
+- Ordinary Math Operations -
+
+BigInteger add(BigInteger val)
+BigInteger subtract(BigInteger val)
+BigInteger multiply(BigInteger val)
+BigInteger divide(BigInteger val)  throws ArithmeticException
+    Regular integer division with truncation towards zero.  Throws
+    an exception if val is zero.
+BigInteger remainder(BigInteger val)  throws ArithmeticException
+    The remainder operation is equivalent to the C and Java %
+    operators.  The remainder that is returned could be negative.
+    Throws an exception if val is zero.
+BigInteger[] divideAndRemainder(BigInteger val)
+        throws ArithmeticException
+    Returns an array of two containing the quotient and the
+    remainder.
+
+BigInteger abs()
+BigInteger negate()
+BigInteger pow(int exponent)  throws ArithmeticException
+    An exception is thrown if exponent is negative.
+
+- Special Math Operations -
+
+BigInteger gcd(BigInteger val)
+    Returns the greatest common divisor of abs(this) and abs(val).
+
+BigInteger mod(BigInteger m)  throws ArithmeticException
+    Returns the non-negative modulus of this.  val must be positive.
+    The value returned is as if val was added over and over until
+    the result is positive.  An exception is thrown if m <= 0.
+BigInteger modInverse(BigInteger m)  throws ArithmeticException
+    A modular inverse is defined as the a^-1 portion of:
+        (a)(a^-1) mod n = 1
+    This function returns (this^-1 mod n).  An exception will be
+    thrown if m <= 0 or this has no multiplicative inverse mod m
+    (that is, this is not relatively prime to m).
+BigInteger modPow(BigInteger exp, BigInteger m)
+        throws ArithmeticException
+    Returns (this^exp mod m).  The exponent can be negative.   
+    An exception is thrown if m <= 0.
+
+BigInteger max(BigInteger val)
+BigInteger min(BigInteger val)
+
+- Bitwise Operations -
+
+BigInteger and(BigInteger val)
+BigInteger andNot(BigInteger val)
+    Complements the two's-complement representation of val and then
+    performs the binary and.
+BigInteger not(BigInteger val)
+BigInteger or(BigInteger val)
+BigInteger xor(BigInteger val)
+BigInteger shiftLeft(int n)
+    n may be negative, resulting in a right shift.
+BigInteger shiftRight(int n)
+    n may be negative, resulting in a left shift.  Sign extension is
+    performed.
+
+- Single Bit Manipulation and Testing -
+
+BigInteger clearBit(int n)  throws ArithmeticException
+BigInteger setBit(int n)  throws ArithmeticException
+BigInteger flipBit(int n)    throws ArithmeticException
+boolean testBit(int n)  throws ArithmeticException
+
+Exceptions are thrown for the above four if n is negative.
+
+- Bit Tests -
+
+int bitCount()
+    Returns the number of bits in the two's-complement
+    representation that differ from its sign bit.
+int bitLength()
+    Returns the number of bits in the minimal two's-complement
+    representation, excluding a sign bit.
+int getLowestSetBit()
+    Returns the index (# of zero bits to the right) of the rightmost
+    one bit.  Returns -1 if no one bits occur.
+
+- Comparison Operations -
+
+int compareTo(BigInteger val)
+    Returns -1, 0, 1 if this is less than, equal to, greater than
+    val.  Use "x.compareTo(y) <op> 0" where op is the comparision
+    desired between x and y.  For example:
+        x < y  -->  x.compareTo(y) < 0
+boolean equals(Object x)
+    Returns true if x is a BigInteger with the same numerical value.
+int signum()
+    Returns -1, 0, 1 if this is negative, zero, positive.
+
+- Conversion to Other Types -
+
+double doubleValue()
+    If value is too small or too large, Double.NEGATIVE_INFINITY or
+    Double.POSITIVE_INFINITY are returned.
+float floatValue()
+    If value is too small or too large, Float.NEGATIVE_INFINITY or
+    Float.POSITIVE_INFINITY are returned.
+int intValue()
+    Returns 32 low order bits.
+long longValue()
+    Returns 64 low order bits.
+byte[] toByteArray()
+String toString()
+String toString(int radix)
+    If radix is outside the range from Character.MIN_RADIX to
+    Character.MAX_RADIX, it will default to 10.
