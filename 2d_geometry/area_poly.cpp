@@ -17,6 +17,7 @@
             Used complex<double> for point rather than specialized struct
    -----------------------------------------------------------------
    Reliability: 0 (Sept 2002)
+                1 successes with current version, on UVA 10065
    Notes:       Remember to run fabs() on the result if a positive
                 area is desired.
 */
