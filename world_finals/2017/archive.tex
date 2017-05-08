@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\usepackage[margin=0.25in]{geometry}
+\usepackage{pdflscape}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{minted}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+
+% code formatting options
+\newmintedfile[cppcode]{cpp}{
+    autogobble,
+    breaklines,
+    frame=bottomline,
+    breakbytokenanywhere,
+    tabsize=2
+}
+
+% column seperator options
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{OliveGreen}}
+
+% a little helper for including snippets
+\newcommand{\codesnippet}[2]{
+    \subsection{#1}
+    \cppcode{#2}
+    \vspace{-2em}
+}
+
+\begin{document}
+\begin{landscape}
+\begin{multicols*}{2}
+
+% IMO the TOC is a waste of space and would be better filled with code
+%\tableofcontents
+
+% -----------------------------------------------------------------------------
+% document begins here
+
+\section{Graph}
+\codesnippet{Dijkstra's}{code/dijkstra.cpp}
+
+% -----------------------------------------------------------------------------
+
+\end{multicols*}
+\end{landscape}
+\end{document}
