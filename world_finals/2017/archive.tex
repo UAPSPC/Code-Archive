@@ -7,6 +7,11 @@
 \usepackage{minted}
 \usepackage{multicol}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+
+\titleformat{\section}
+{\normalfont\large\bfseries}{\thesection}{1em}{}[{\titlerule[0.5pt]\vspace{0.1em}\titlerule[0.5pt]}]
+\titleformat*{\subsection}{\bfseries}
 
 % code formatting options
 \newmintedfile[cppcode]{cpp}{
@@ -18,7 +23,7 @@
 }
 
 % column seperator options
-\setlength{\columnseprule}{1pt}
+\setlength{\columnseprule}{2pt}
 \def\columnseprulecolor{\color{OliveGreen}}
 
 % a little helper for including snippets
@@ -31,6 +36,7 @@
 \begin{document}
 \begin{landscape}
 \begin{multicols*}{2}
+\raggedcolumns
 
 % IMO the TOC is a waste of space and would be better filled with code
 %\tableofcontents
@@ -81,13 +87,13 @@
     {Rectangle in rectangle test}
     {code/Geometry - 2D Misc/Rectangle in rectangle test.cpp}
 \codesnippet
-    {Centroid and area of a simple polygon [$O(N)$]}
+    {Centroid and area of a simple polygon $O(N)$}
     {code/Geometry - 2D Misc/Centroid and area of a simple polygon.cpp}
 \codesnippet
-    {Point in polygon [$O(N)$]}
+    {Point in polygon $O(N)$}
     {code/Geometry - 2D Misc/Point in polygon.cpp}
 \codesnippet
-    {Convex-hull [$O(N \log N)$]}
+    {Convex-hull $O(N \log N)$}
     {code/Geometry - 2D Misc/Convex-hull.cpp}
 
 \section{Geometry - 3D}
@@ -95,12 +101,12 @@
     {Primitives}
     {code/Geometry - 3D/Primitives.cpp}
 \codesnippet
-    {3D Convex-hull [$O(N^2)$]}
+    {3D Convex-hull $O(N^2)$}
     {code/Geometry - 3D/Convex-hull 3D.cpp}
 
 \section{Combinatorics}
 \codesnippet
-    {(Un)Ranking of K-combination out of N [$O(K \log N)$]}
+    {(Un)Ranking of K-combination out of N $O(K \log N)$}
     {code/Combinatorics/(Un)Ranking of K-combination out of N.cpp}
 \codesnippet
     {(Un)Ranking of K-permutation out of N [$O(K)$]}
@@ -108,7 +114,7 @@
 
 \section{Graph Theory}
 \codesnippet
-    {Fast flow [$O(V^2E)$]}
+    {Fast flow $O(V^2E)$}
     {code/Graph Theory/Fast flow.cpp}
 \codesnippet
     {Flow and negative flow}
@@ -117,58 +123,58 @@
     {Min cost max flow}
     {code/Graph Theory/Min cost max flow.cpp}
 \codesnippet
-    {2-Sat \& strongly connected component [$O(V+E)$]}
+    {2-Sat \& strongly connected component $O(V+E)$}
     {code/Graph Theory/2-Sat and strongly connected component.cpp}
 \codesnippet
-    {Bipartite matching, vertex cover, edge cover, disjoint set [$O(VE)$]}
+    {Bipartite matching, vertex cover, edge cover, disjoint set $O(VE)$}
     {code/Graph Theory/Bipartite matching, vertex cover, edge cover, disjoint set.cpp}
 \codesnippet
-    {Bipartite weighted matching [$O(VE^2)$]}
+    {Bipartite weighted matching $O(VE^2)$}
     {code/Graph Theory/Bipartite weighted matching.cpp}
 \codesnippet
-    {Cut edges and 2-edge-connected components [$O(V+E)$]}
+    {Cut edges and 2-edge-connected components $O(V+E)$}
     {code/Graph Theory/Cut edges and 2-edge-connected components.cpp}
 \codesnippet
-    {Cut vertices and 2-connected components [$O(V+E)$]}
+    {Cut vertices and 2-connected components $O(V+E)$}
     {code/Graph Theory/Cut vertices and 2-connected components.cpp}
 \codesnippet
-    {Dijkstra [$O(E\log V)$]}
+    {Dijkstra $O(E\log V)$}
     {code/Graph Theory/Dijkstra.cpp}
 
 \section{Number Theory}
 \codesnippet
-    {Sieve of Eratosthenes [$O(N \log\log N)$]}
+    {Sieve of Eratosthenes $O(N \log\log N)$}
     {code/Number Theory/Sieve of Eratosthenes.cpp}
 \codesnippet
-    {Chinese remaindering and ext. Euclidean [$O(N \log \max(M_i))$]}
+    {Chinese remaindering and ext. Euclidean $O(N \log \max(M_i))$}
     {code/Number Theory/Chinese remaindering and ext. Euclidean.cpp}
 \codesnippet
-    {Discrete logarithm solver [$O(\sqrt P)$]}
+    {Discrete logarithm solver $O(\sqrt P)$}
     {code/Number Theory/Discrete logarithm solver.cpp}
 
 \section{String}
 \codesnippet
-    {Manacher's algorithm [$O(N)$]}
+    {Manacher's algorithm $O(N)$}
     {code/String/Manacher's algorithm.cpp}
 \codesnippet
-    {KMP string matching [$O(N+M)$]}
+    {KMP string matching $O(N+M)$}
     {code/String/KMP string matching.cpp}
 \codesnippet
-    {Suffix array [$O(N log N)$]}
+    {Suffix array $O(N log N)$}
     {code/String/Suffix array.cpp}
 
 \section{Misc}
 \codesnippet
-    {Longest ascending subsequence [$O(n\log n)$]}
+    {Longest ascending subsequence $O(n\log n)$}
     {code/Misc/Longest ascending subsequence.cpp}
 \codesnippet
     {Simplex}
     {code/Misc/Simplex.cpp}
 \codesnippet
-    {Segment tree [$O(\log n)$]}
+    {Segment tree $O(\log n)$}
     {code/Misc/Segment tree.cpp}
 \codesnippet
-    {Equation solving [$O(NM(N+M)$]}
+    {Equation solving $O(NM(N+M)$}
     {code/Misc/Equation solving.cpp}
 \codesnippet
     {Cubic equation solver}
