@@ -3,3 +3,6 @@ archive.pdf : archive.tex
 
 test:
 	cd testing; find ../code -name "*.cpp" -exec ./trycompile.sh "{}" \;
+
+format:
+	clang-format -style=file -i code/*/*.cpp
