@@ -1,12 +1,12 @@
 typedef pair<int,int> pii;
 int comp(const pii &a, const pii &b) {
-    if(a.first!=b.first)    
+    if(a.first!=b.first)
         return a.first<b.first;
     return a.second<b.second; // return 0 to find strictly ascending subsequence
 }
 vector<int> lis(const vector<int> &in) {
     vector<pii> l;
-    vector<int> par(in.size(),­1);
+    vector<int> par(in.size(),-1);
     for(int i=0;i<in.size();i++) {
         int ind = lower_bound(l.begin(),l.end(),pii(in[i],i),comp)-l.begin();
         if(ind==l.size())
