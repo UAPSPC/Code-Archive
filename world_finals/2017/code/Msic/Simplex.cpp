@@ -4,14 +4,14 @@
 //   row 0        - objective function coefficients
 //   row 1:m      - less-than inequalities
 //   column 0:n-1 - inequality coefficients
-//   column n     - inequality constants (0 for obj. function) 
+//   column n     - inequality constants (0 for obj. function)
 // x[n] - result variables
 // Returns value - maximum value of objective function
 //   (-inf for infeasible, inf for unbounded)
 const int maxm = 400;  // leave one extra
 const int maxn = 400;  // leave one extra
 const double eps = 1e-9;
-const double inf = 1.0/0.0; 
+const double inf = 1.0/0.0;
 double ine[maxm][maxn];
 int basis[maxm], out[maxn];
 void pivot(int m, int n, int a, int b) {
@@ -56,7 +56,7 @@ double simplex(int m, int n, double c[][maxn], double x[]) {
     }
     for(;;) {
         for (j=jj=0;j<n;j++)
-            if (ine[0][j]<ine[0][jj] || (ine[0][j]==ine[0][jj] 
+            if (ine[0][j]<ine[0][jj] || (ine[0][j]==ine[0][jj]
 && out[j]<out[jj]))
                 jj=j;
         if (ine[0][jj] > -eps) break;

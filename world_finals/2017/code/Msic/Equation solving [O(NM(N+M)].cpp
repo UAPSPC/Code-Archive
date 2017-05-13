@@ -1,6 +1,6 @@
-const double eps = 1e­7;~
-bool zero(double a){return (a<eps) && (a>­eps);}
-// m = number of equations, n = number of variables, 
+const double eps = 1e-7;
+bool zero(double a){return (a<eps) && (a>-eps);}
+// m = number of equations, n = number of variables,
 // a[m][n+1] = coefficients matrix
 // Returns double ans[n] containing the solution, if there is no
 // solution returns NULL
@@ -14,7 +14,7 @@ double* solve(double **a, int m, int n){
                     if (sat==cur) continue;
                     double num=a[sat][i]/a[cur][i];
                     for (int sot=0;sot<=n;++sot)
-                        a[sat][sot]­=a[cur][sot]*num;
+                        a[sat][sot]-=a[cur][sot]*num;
                 }
                 cur++;
                 break;

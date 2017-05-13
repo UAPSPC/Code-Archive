@@ -1,6 +1,6 @@
-// Input: n, m, w[n][m] (n <= m)~
-//        w[i][j] is the weight between the i­th vertex of part1
-//        and the j­th vertex of part2. w[i][j] can be any
+// Input: n, m, w[n][m] (n <= m)
+//        w[i][j] is the weight between the i-th vertex of part1
+//        and the j-th vertex of part2. w[i][j] can be any
 //        integer (including negative values)
 // Output: res, size of res is n
 const int inf = 1e7;
@@ -11,18 +11,18 @@ int dfs(int x){
     if (x<0) return 1;
     if (mark[x]++) return 0;
     for (int i=0 ; i<m ; i++)
-        if (u[x]+v[i]­w[x][i]==0)
+        if (u[x]+v[i]-w[x][i]==0)
             if (dfs(mate[i]))
                 return matched[mate[i]=x]=1;
     return 0;
 }
 void _2matching(){
-    memset( mate , ­1 , sizeof mate );
+    memset( mate , -1 , sizeof mate );
     memset( mark , 0 , sizeof mark );
     memset( matched , 0 , sizeof matched );
     for (int i=0 ; i<n ; i++)
         for (int j=0 ; j<m ; j++)
-            if (mate[j]<0 && u[i]+v[j]­w[i][j]==0){
+            if (mate[j]<0 && u[i]+v[j]-w[i][j]==0){
                 matched[mate[j]=i]=1;
                 break;
             }
@@ -35,11 +35,11 @@ void wmatching(vector <pair<int, int> > &res){
     for (int i=0 ; i<m ; i++)
         v[i] = 0;
     for (int i=0 ; i<n ; i++){
-        u[i] = ­inf;
+        u[i] = -inf;
         for (int j=0 ; j<m ; j++)
             u[i] = max(u[i],w[i][j]);
     }
-    memset( mate , ­1 , sizeof mate );
+    memset( mate , -1 , sizeof mate );
     memset( matched , 0 , sizeof matched );
     int counter = 0;
     while (counter!=n){
@@ -59,11 +59,11 @@ void wmatching(vector <pair<int, int> > &res){
                 if (!mark[i]) continue;
                 if (mate[j]>=0)
                     if (mark[mate[j]]) continue;
-                epsilon = min(epsilon, u[i] + v[j] ­ w[i][j]);
+                epsilon = min(epsilon, u[i] + v[j] - w[i][j]);
             }
         for (int i=0 ; i<n ; i++)
             if (mark[i])
-                u[i] ­= epsilon;
+                u[i] -= epsilon;
         for (int j=0 ; j<m ; j++)
             if (mate[j]>=0)
                 if (mark[mate[j]])
@@ -71,6 +71,6 @@ void wmatching(vector <pair<int, int> > &res){
     }
     res.clear();
     for (int i=0 ; i<m ; i++)
-        if (mate[i]!=­1)
+        if (mate[i]!=-1)
             res.push_back(pair<int,int>(mate[i],i));
 }

@@ -1,4 +1,4 @@
-//Input (zerobased):~
+//Input (zerobased):
 //       g[n] should be the adjacency list of the graph
 //       g[i] is a vector of int
 //Output of cut_ver():
@@ -38,7 +38,7 @@ void dfs(int x, int level){
                 comp[comp_size++].push_back(x);
                 //
             }
-        }else if ( d[u] != d[x] ­1 )
+        }else if ( d[u] != d[x] -1 )
             jad[x] = std::min(d[u], jad[x]);
     }
     //for components only

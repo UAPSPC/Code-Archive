@@ -1,4 +1,4 @@
-// find_flow returns max flow from s to t in an n­vertex graph.~
+// find_flow returns max flow from s to t in an n-vertex graph.
 // Use add_edge to add edges (directed/undirected) to the graph.
 // Call clear_flow() before each testcase.
 int c[maxn][maxn];
@@ -26,11 +26,11 @@ int advance(int v){
             return w;
         }
     }
-    return ­1;
+    return -1;
 }
 int retreat(int v){
     int old=dist[v];
-    ­­dcount[dist[v]];
+    --dcount[dist[v]];
     for (int i=0;i<adj[v].size();++i){
         int w=adj[v][i];
         if (c[v][w]>0)
@@ -39,7 +39,7 @@ int retreat(int v){
     ++dist[v];
     ++dcount[dist[v]];
     if (dcount[old]==0)
-        return ­1;
+        return -1;
     return par[v];
 }
 int augment(int s,int t){
@@ -47,14 +47,14 @@ int augment(int s,int t){
     for (int v=t;v!=s;v=par[v])
         delta=min(delta,c[par[v]][v]);
     for (int v=t;v!=s;v=par[v]){
-        c[par[v]][v]­=delta;
+        c[par[v]][v]-=delta;
         c[v][par[v]]+=delta;
     }
     return delta;
 }
 queue<int> q;
 void bfs(int v){
-    memset(dist,­1,sizeof dist);
+    memset(dist,-1,sizeof dist);
     while (!q.empty()) q.pop();
     q.push(v);
     dist[v]=0;
@@ -64,7 +64,7 @@ void bfs(int v){
         q.pop();
         for (int i=0;i<adj[v].size();++i){
             int w=adj[v][i];
-            if (c[w][v]>0 && dist[w]==­1){
+            if (c[w][v]>0 && dist[w]==-1){
                 dist[w]=dist[v]+1;
                 ++dcount[dist[w]];
                 q.push(w);
@@ -77,9 +77,9 @@ int find_flow(int n,int s,int t){
     int v=s;
     par[s]=s;
     int ans=0;
-    while (v!=­1 && dist[s]<n){
+    while (v!=-1 && dist[s]<n){
         int newv=advance(v);
-        if (newv!=­1)
+        if (newv!=-1)
             v=newv;
         else
             v=retreat(v);

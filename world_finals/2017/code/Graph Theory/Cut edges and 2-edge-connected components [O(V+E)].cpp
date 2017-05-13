@@ -1,4 +1,4 @@
-//input (zero based):~
+//input (zero based):
 //       g[n] should be the adjacency list of the graph
 //       g[i] is a vector of int
 //output of cut_edge():
@@ -39,8 +39,8 @@ void dfs(int x, int level){
                 //
             }
         }else{
-            if (d[u] == d[x] ­ 1) t++;
-            if (d[u] != d[x] ­ 1 || t!=1)
+            if (d[u] == d[x] - 1) t++;
+            if (d[u] != d[x] - 1 || t!=1)
                 jad[x] = std::min(d[u], jad[x]);
         }
     }

@@ -1,7 +1,7 @@
-// Input: ~
+// Input:
 //    n: size of part1, m: size of part2
-//    a[i]: neighbours of i­th vertex of part1
-//    b[i]: neighbours of i­th vertex of part2
+//    a[i]: neighbours of i-th vertex of part1
+//    b[i]: neighbours of i-th vertex of part2
 const int maxn=2020, maxm=2020;
 int n, m;
 vector <int> a[maxn], b[maxm];
@@ -15,7 +15,7 @@ int dfs(int v){
 }
 int set_mark(){
     memset(matched,0,sizeof matched);
-    memset(mate,­1,sizeof mate);
+    memset(mate,-1,sizeof mate);
     memset(mark,0,sizeof mark);
     for (int i=0;i<n;++i)
         for (int j=0;j<a[i].size();++j)
@@ -31,13 +31,13 @@ int set_mark(){
             dfs(i);
 }
 // res.size(): size of matching
-// res[i]: i­th edge of matching
+// res[i]: i-th edge of matching
 // res[i].first is in part1, res[i].second is in part2
 void matching (vector<pair<int,int> > &res){
     set_mark();
     res.clear();
     for (int i=0;i<m;++i)
-        if (mate[i]>=0) 
+        if (mate[i]>=0)
             res.push_back(pair <int,int> (mate[i], i));
 }
 // p1: vertices in part1, p2: vertices in part2
