@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 // Points must be oriented (CW or CCW), and non-convex is OK
 // Returns (nan,nan) is area of polygon is zero
 point centroid(vector<point> p) {

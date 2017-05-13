@@ -19,7 +19,7 @@ void dijkstra (int source) {
         if (d[x]==-1)
             break;
         for (vector<pair<int,int> >::iterator it = v[x].begin() ; it != v[x].end() ; ++it){
-            if (d[it->first]==-1 || d[x]+it->second < d[it- >first]){
+            if (d[it->first]==-1 || d[x]+it->second < d[it->first]){
                 mark.erase(it->first);
                 d[it->first] = d[x]+it->second;
                 mark.insert (it->first);

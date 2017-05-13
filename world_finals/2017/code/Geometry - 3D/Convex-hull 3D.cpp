@@ -1,3 +1,4 @@
+#include "Primitives.cpp"
 // vector<hullFinder::hullFace> hull=hullFinder(pts).findHull();
 // 'hull' will have triangular faces of convex-hull of the given
 // points 'pts'. Some of them might be co-planar.

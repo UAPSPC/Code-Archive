@@ -6,6 +6,8 @@
 // suffix(j1,i)<suffix(j2,i) -> order[i][j1]<order[i][j2]
 typedef pair<int,int> pii;
 typedef pair<pii,int> p3i;
+const int maxn = 10000;
+const int maxlog = 100;
 int order[maxlog][maxn];
 // if N*log^2(N) is good enough don't write the next function
 vector<p3i> buck[maxn];
@@ -33,7 +35,7 @@ void suffix_array(vector<int> in) {
         sorted.push_back(p3i(pii(in[i],in[i]),i));
     sort(sorted.begin(), sorted.end());
     for(int k=0;k<maxlog;k++) {
-        int cur = 0;z
+        int cur = 0;
         for (int i=0;i<n;i++) {
             if(i>0 && sorted[i-1].first!=sorted[i].first)
                 cur++;

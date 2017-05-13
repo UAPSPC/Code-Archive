@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 double circ_inter_area(circle &a, circle &b) {
     double d = abs(b.c-a.c);
     if (d <= (b.r - a.r)) return a.r*a.r*M_PI;

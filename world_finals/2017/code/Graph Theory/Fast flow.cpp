@@ -1,6 +1,7 @@
 // find_flow returns max flow from s to t in an n-vertex graph.
 // Use add_edge to add edges (directed/undirected) to the graph.
 // Call clear_flow() before each testcase.
+const int maxn = 1000;
 int c[maxn][maxn];
 vector<int> adj[maxn];
 int par[maxn];

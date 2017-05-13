@@ -1,4 +1,5 @@
 // Returns all prime numbers in [0,n]
+const int maxn = 1000000;
 int isnprime[maxn];
 vector<int> sieve(int n) {
     memset(isnprime,0,sizeof isnprime);

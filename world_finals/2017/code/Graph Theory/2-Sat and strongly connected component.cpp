@@ -4,6 +4,7 @@
 // For 2-Sat set 'n' and use add_edge
 // 0<=val[i]<=1 is the value for binary variable i in 2-Sat
 // 0<=group[i]<2*n is the scc number of vertex i.
+const int maxn = 1000;
 int n;
 vector<int> adj[maxn*2];
 vector<int> adjrev[maxn*2];

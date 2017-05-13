@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 // Intersects two circles and intersection points are in 'inter'
 // -1-> outside, 0-> inside, 1-> tangent, 2-> 2 intersections
 int circ_circ_inter(circle &a, circle &b, vector<point> &inter) {

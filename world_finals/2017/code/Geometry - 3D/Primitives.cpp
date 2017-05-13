@@ -1,9 +1,10 @@
+const double eps = 1e-6;
 struct point3 {
     double x, y, z;
     point3(double x=0, double y=0, double z=0):x(x),y(y),z(z){}
-    point3 operator+(point3 p)const ?{ return point3(x + p.x, y + p.y, z + p.z); }
+    point3 operator+(point3 p)const { return point3(x + p.x, y + p.y, z + p.z); }
     point3 operator*(double k)const { return point3(k*x, k*y, k*z); }
-    point3 operator-(point3 p)const ?{ return *this + (p*-1.0);}
+    point3 operator-(point3 p)const { return *this + (p*-1.0);}
     point3 operator/(double k)const { return *this*(1.0/k); }
     double norm() { return x*x + y*y + z*z; }
     double abs() { return sqrt(norm()); }
@@ -48,7 +49,7 @@ point3 cpoint_ilines(line u, line v) {
 point3 cpoint_lineseg(line u, point3 p) {
     point3 ud = u.b - u.a; double s = dot(u.a - p, ud)/ud.norm();
     if (s < -1.0) return u.b;
-    if (s > ?0.0) return u.a;
+    if (s > 0.0) return u.a;
     return u.a - ud*s;
 }
 struct plane {

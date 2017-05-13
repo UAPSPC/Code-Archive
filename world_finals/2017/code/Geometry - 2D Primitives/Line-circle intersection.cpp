@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 // Intersects (infinite) line a-b with circle c
 // Intersection points are in 'inter'
 // 0 -> no intersection, 1 -> tangent, 2 -> two intersections

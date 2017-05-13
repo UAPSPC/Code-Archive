@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 // Assumes pts.size()>0 and returns ccw convex hull with no
 // 3 collinear points and with duplicated left most side node
 int comp(const point &a,const point &b) {

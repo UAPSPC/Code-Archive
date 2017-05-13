@@ -1,3 +1,4 @@
+#include "Basics.cpp"
 // Returns whether they form a circle or not.
 // 'center' and 'r' contain the circle if there is one
 bool get_circle(point p1, point p2, point p3, point &center, double &r) {
