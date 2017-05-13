@@ -7,5 +7,5 @@ struct circle {
   circle(point c, double r) : c(c), r(r) {}
   circle() {}
 };
-double cross(point &a, point &b) { return imag(conj(a) * b); }
-double dot(point &a, point &b) { return real(conj(a) * b); }
+double cross(const point &a, const point &b) { return imag(conj(a) * b); }
+double dot(const point &a, const point &b) { return real(conj(a) * b); }
