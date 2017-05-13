@@ -14,7 +14,6 @@ int group[maxn*2];
 inline int other(int v){return v<n?v+n:v-n;}
 inline int var(int v){return v<n?v:v-n;}
 inline int type(int v){return v<n?1:0;}
-//
 void satclear() {
     for(int i=0;i<maxn+maxn;i++) {
         adj[i].resize(0);
@@ -45,7 +44,6 @@ void add_edge(int a,int b) {
     adj[other(b)].push_back(a);
     adjrev[b].push_back(other(a));
 }
-//
 int solve() {
     dfst=0;
     memset(dfstime,-1,sizeof dfstime);
@@ -65,6 +63,5 @@ int solve() {
             return 0;
         val[i]=(group[i]>group[i+n])?0:1;
     }
-    //
     return 1;
 }

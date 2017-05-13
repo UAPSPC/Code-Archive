@@ -1,7 +1,6 @@
 // Intersects two circles and intersection points are in 'inter'
 // -1-> outside, 0-> inside, 1-> tangent, 2-> 2 intersections
-int circ_circ_inter(circle &a, circle &b, vector<point> &inter)
-{
+int circ_circ_inter(circle &a, circle &b, vector<point> &inter) {
     double d2 = norm(b.c-a.c), rS = a.r+b.r, rD = a.r-b.r;
     if (d2 > rS*rS) return -1;
     if (d2 < rD*rD) return 0;

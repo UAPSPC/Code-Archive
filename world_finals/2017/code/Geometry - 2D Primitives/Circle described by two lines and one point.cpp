@@ -1,8 +1,7 @@
 // Returns number of circles that pass through point p and are
 // tangent to the lines a-b and c-d
 // 'ans' has all possible circles with radius greater than zero
-int get_circle(point p, point a, point b, point c, point d,
-vector<circle> &ans) {
+int get_circle(point p, point a, point b, point c, point d, vector<circle> &ans) {
     point inter;
     int st = line_line_inter(a,b,c,d,inter);
     if(st==-1) return 0;

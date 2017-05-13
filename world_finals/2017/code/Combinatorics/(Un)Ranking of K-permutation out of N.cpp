@@ -1,5 +1,4 @@
-void rec_unrank_perm(int n, int k, long long r, vector<int> &id,
-vector<int> &pi) {
+void rec_unrank_perm(int n, int k, long long r, vector<int> &id,vector<int> &pi) {
     if(k>0) {
         swap(id[n-1],id[r%n]);
         rec_unrank_perm(n-1,k-1,r/n,id,pi);
@@ -10,14 +9,12 @@ vector<int> &pi) {
 // Returns a k-permutation corresponds to rank 'r' of n objects.
 // 'id' should be a full identity permutation of size at least n
 // and it remains the same at the end of the function
-vector<int> unrank_perm(int n, int k, long long r, vector<int>
-&id) {
+vector<int> unrank_perm(int n, int k, long long r, vector<int> &id) {
     vector<int> ans;
     rec_unrank_perm(n,k,r,id,ans);
     return ans;
 }
-long long rec_rank_perm(int n, int k, vector<int> &pirev,
-vector<int> &pi) {
+long long rec_rank_perm(int n, int k, vector<int> &pirev, vector<int> &pi) {
     if(k==0)
         return 0;
     int s = pi[k-1];

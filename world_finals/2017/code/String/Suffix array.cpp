@@ -48,7 +48,7 @@ void suffix_array(vector<int> in) {
             sorted[i] = p3i(pii(o1,o2),i);
         }
         // if n*log^2(n) is good enough use the following line
-instead of the three radixes
+        // instead of the three radixes
         // sort(sorted.begin(), sorted.end());
         radix(sorted, n, 3);
         radix(sorted, n, 2);

@@ -34,7 +34,7 @@ void flow(int s,int t){
 // Finds f[i][j] in a circular flow satisfying x[i][j]
 // If you have a real sink and source set x[sink][source]=inf
 // x[i][j]<0 means capacity of i->j is zero and a flow of at
-least abs(x[i][j]) should go from j to i.
+// least abs(x[i][j]) should go from j to i.
 // If you have two capacities for i->j and j->i and some
 // min flow for at least one of them you should resolve this
 // before calling the function by filling some flow in f[i][j]

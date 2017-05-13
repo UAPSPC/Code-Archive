@@ -1,4 +1,4 @@
-#include <iostream> #include <iomanip> #include <cmath>
+#include <bits/stdc++.h> // include everything
 freopen("test.in","r",stdin);
 freopen("test.out","w",stdout);
 cout << fixed << setprecision(7) << M_PI << endl; // 3.1415927

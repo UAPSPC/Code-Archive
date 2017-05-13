@@ -17,9 +17,9 @@ int dfs(int x){
     return 0;
 }
 void _2matching(){
-    memset( mate , -1 , sizeof mate );
-    memset( mark , 0 , sizeof mark );
-    memset( matched , 0 , sizeof matched );
+    memset(mate, -1, sizeof mate );
+    memset(mark, 0, sizeof mark );
+    memset(matched, 0, sizeof matched );
     for (int i=0 ; i<n ; i++)
         for (int j=0 ; j<m ; j++)
             if (mate[j]<0 && u[i]+v[j]-w[i][j]==0){
@@ -29,7 +29,7 @@ void _2matching(){
     for (int i=0 ; i<n ; i++)
         if (!matched[i])
             if (dfs(i))
-                memset( mark , 0 , sizeof mark );
+                memset(mark, 0, sizeof mark);
 }
 void wmatching(vector <pair<int, int> > &res){
     for (int i=0 ; i<m ; i++)

@@ -2,8 +2,7 @@
 // is defined by point 'p' and line a-b
 // Returns the number of intersections
 // 'ans' has intersection points
-int parabola_line_inter(point p, point a, point b, point d,
-point e, vector<point> &ans) {
+int parabola_line_inter(point p, point a, point b, point d, point e, vector<point> &ans) {
     b = b-a;
     p/=b; a/=b; d/=b; e/=b;
     a-=p; d-=p; e-=p;
@@ -27,8 +26,7 @@ point e, vector<point> &ans) {
             ans.push_back(point(x,(-c-n.real()*x)/n.imag()));
             if(delta>eps) {
                 double x = (-bb-delta)/(2*aa);
-                ans.push_back(point(x,(-c-
-n.real()*x)/n.imag()));
+                ans.push_back(point(x,(-c-n.real()*x)/n.imag()));
             }
         }
     }

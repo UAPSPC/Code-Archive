@@ -14,12 +14,10 @@ vector<int> cut_vertex;
 vector<int> comp[maxn];
 int comp_size;
 vector<int> comp_stack;
-//
 void dfs(int x, int level){
     mark[x] = 1;
     //for components only
     comp_stack.push_back(x);
-    //
     for (int i=0 ; i<(int)g[x].size() ; i++){
         int u = g[x][i];
         if (!mark[u]){
@@ -36,7 +34,6 @@ void dfs(int x, int level){
                 comp[comp_size].push_back(u);
                 comp_stack.pop_back();
                 comp[comp_size++].push_back(x);
-                //
             }
         }else if ( d[u] != d[x] -1 )
             jad[x] = std::min(d[u], jad[x]);
@@ -49,7 +46,6 @@ void dfs(int x, int level){
         }
         comp_size++;
     }
-    //
 }
 int dfs0(int x){
     mark0[x] = 1;
@@ -67,7 +63,6 @@ void cut_ver(){
     for (int i=0 ; i<maxn ; i++) comp[i].clear();
     comp_stack.clear();
     comp_size = 0;
-    //
     cut_vertex.clear();
     for (int i=0 ; i<n ; i++)
         if (!mark[i])

@@ -21,8 +21,7 @@ LLI chinese_rem(vector<LLI> &a, vector<LLI> &m) {
     for (int i = 1; i < a.size(); ++i) {
         g = gcdex(m_tmp, m[i], s, t);
         if ((a_tmp - a[i]) % g) return -1;
-        a_tmp = mod(a_tmp + (a[i] - a_tmp) / g * s * m_tmp,
-m_tmp/g*m[i]);
+        a_tmp = mod(a_tmp + (a[i] - a_tmp) / g * s * m_tmp, m_tmp/g*m[i]);
         m_tmp = m[i] * m_tmp / gcdex(m[i], m_tmp, s, t);
     }
     return a_tmp;

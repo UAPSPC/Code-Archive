@@ -1,6 +1,5 @@
 //Solves ax^3 + bx^2 + cx + d = 0
-vector<double> solve_cubic(double a, double b, double c, double
-d) {
+vector<double> solve_cubic(double a, double b, double c, double d) {
     long double a1 = b/a, a2 = c/a, a3 = d/a;
     long double q = (a1*a1 - 3*a2)/9.0, sq = -2*sqrt(q);
     long double r = (2*a1*a1*a1 - 9*a1*a2 + 27*a3)/54.0;

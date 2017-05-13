@@ -12,17 +12,14 @@ inline vector<point> convexhull (vector<point> &pts) {
     vector<point> lower, upper;
     for(int i=0; i<(int)pts.size(); i++) {
         // <-eps include all points on border
-        while (lower.size() >= 2 && cross(lower.back()-
-lower[lower.size()-2], pts[i]-lower.back()) < eps)
+        while (lower.size() >= 2 && cross(lower.back()-lower[lower.size()-2], pts[i]-lower.back()) < eps)
             lower.pop_back();
         // >eps include all points on border
-        while (upper.size() >= 2 && cross(upper.back()-
-upper[upper.size()-2], pts[i]-upper.back()) > -eps)
+        while (upper.size() >= 2 && cross(upper.back()-upper[upper.size()-2], pts[i]-upper.back()) > -eps)
             upper.pop_back();
         lower.push_back(pts[i]);
         upper.push_back (pts[i]);
     }
-    lower.insert (lower.end(), upper.rbegin() + 1,
-upper.rend());
+    lower.insert (lower.end(), upper.rbegin() + 1, upper.rend());
     return lower;
 }

@@ -9,8 +9,7 @@ void initialize() { //~O(nk)
         combination[0][i]=1;
     for(int i=1;i<maxk;i++)
         for(int j=1;j<maxn;j++)
-            combination[i][j] = combination[i][j-
-1]+combination[i-1][j-1];
+            combination[i][j] = combination[i][j- 1]+combination[i-1][j-1];
     for(int i=0;i<maxk;i++)
         cumsum[i][0] = combination[i][0];
     for(int i=0;i<maxk;i++)
@@ -23,8 +22,7 @@ long long rank_comb(int n, vector<int> c) {
     int prev = -1;
     sort(c.begin(),c.end()); // comment this if it is sorted
     for(int i=0;i<c.size();i++) {
-        ans += cumsum[c.size()-i-1][n-prev-2]-cumsum[c.size()-i-
-1][n-c[i]-1];
+        ans += cumsum[c.size()-i-1][n-prev-2]-cumsum[c.size()-i- 1][n-c[i]-1];
         prev = c[i];
     }
     return ans;
@@ -42,8 +40,7 @@ vector<int> unrank_comb(int n, int k, long long r) {
     int prev = -1;
     for(int i=0;i<k;i++) {
         long long base = cumsum[k-i-1][n-prev-2];
-        prev = n-1-(lower_bound(cumsum[k-i-1],cumsum[k-i-1]+n-
-prev-1,r,comp(base))-cumsum[k-i-1]);
+        prev = n-1-(lower_bound(cumsum[k-i-1],cumsum[k-i-1]+n- prev-1,r,comp(base))-cumsum[k-i-1]);
         r -= base-cumsum[k-i-1][n-prev-1];
         c.push_back(prev);
     }

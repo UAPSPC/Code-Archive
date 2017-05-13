@@ -39,8 +39,7 @@ point c2, vector<circle> &cirs) {
         c1.c = p;
         line_line_inter(b,v2,a,v4,p);
         c2.c = p;
-        c1.r = c2.r = abs(((a1-b1)/(b2-b1)).imag()*abs(b2-
-b1))/2;
+        c1.r = c2.r = abs(((a1-b1)/(b2-b1)).imag()*abs(b2-b1))/2;
         cirs.push_back(c1);
         cirs.push_back(c2);
     } else {
@@ -66,8 +65,7 @@ b1))/2;
         bisec2[3][1]=c;
         for(int i=0;i<4;i++) {
             point p;
-            line_line_inter(bisec1[i][1],bisec1[i][1]+bisec1[i]
-[0],bisec2[i][1],bisec2[i][1]+bisec2[i][0],p);
+            line_line_inter(bisec1[i][1],bisec1[i][1]+bisec1[i][0],bisec2[i][1],bisec2[i][1]+bisec2[i][0],p);
             circle c1;
             c1.c = p;
             c1.r = abs(((p-a)/(b-a)).imag())*abs(b-a);

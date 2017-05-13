@@ -32,8 +32,7 @@ int dijkstra(){
                 d[v] = pot(u,v) - cost[v][u];
                 p[v] = u;
             }
-            if( !mark[v] && f[u][v] < cap[u][v] && d[v] >
-pot(u,v) + cost[u][v] ){
+            if( !mark[v] && f[u][v] < cap[u][v] && d[v] > pot(u,v) + cost[u][v] ){
                 d[v] = pot(u,v) + cost[u][v];
                 p[v] = u;
             }

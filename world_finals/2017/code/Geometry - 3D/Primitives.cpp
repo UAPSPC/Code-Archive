@@ -1,10 +1,8 @@
 struct point3 {
     double x, y, z;
     point3(double x=0, double y=0, double z=0):x(x),y(y),z(z){}
-    point3 operator+(point3 p)const ?{ return point3(x + p.x, y
-+ p.y, z + p.z); }
-    point3 operator*(double k)const { return point3(k*x, k*y,
-k*z); }
+    point3 operator+(point3 p)const ?{ return point3(x + p.x, y + p.y, z + p.z); }
+    point3 operator*(double k)const { return point3(k*x, k*y, k*z); }
     point3 operator-(point3 p)const ?{ return *this + (p*-1.0);}
     point3 operator/(double k)const { return *this*(1.0/k); }
     double norm() { return x*x + y*y + z*z; }
@@ -17,8 +15,7 @@ double dot(point3 a, point3 b) {
 }
 // cross product
 point3 cross(point3 a, point3 b) {
-    return point3(a.y*b.z - b.y*a.z, b.x*a.z - a.x*b.z, a.x*b.y
-- b.x*a.y);
+    return point3(a.y*b.z - b.y*a.z, b.x*a.z - a.x*b.z, a.x*b.y - b.x*a.y);
 }
 struct line {
     point3 a, b;
@@ -49,18 +46,15 @@ point3 cpoint_ilines(line u, line v) {
 }
 // Closest point on a line segment u to a given point p
 point3 cpoint_lineseg(line u, point3 p) {
-    point3 ud = u.b - u.a; double s = dot(u.a - p,
-ud)/ud.norm();
+    point3 ud = u.b - u.a; double s = dot(u.a - p, ud)/ud.norm();
     if (s < -1.0) return u.b;
     if (s > ?0.0) return u.a;
     return u.a - ud*s;
 }
 struct plane {
     point3 n, p;
-    plane(point3 ni = point3(), point3 pi = point3()) : n(ni),
-p(pi) {}
-    plane(point3 a, point3 b, point3 c) : n(cross(b-a, c-
-a).normalize()), p(a) {}
+    plane(point3 ni = point3(), point3 pi = point3()) : n(ni), p(pi) {}
+    plane(point3 a, point3 b, point3 c) : n(cross(b-a, c- a).normalize()), p(a) {}
     //Value of d for the equation ax + by + cz + d = 0
     double d() { return -dot(n, p); }
 };
@@ -81,13 +75,11 @@ point3 iline_isect_plane(plane u, line v) {
 line isect_planes(plane u, plane v) {
     point3 o = u.n*-u.d(), uv = cross(u.n, v.n);
     point3 uvu = cross(uv, u.n);
-    point3 a = o - uvu*((dot(v.n, o) + v.d())/(dot(v.n,
-uvu)*uvu.norm()));
+    point3 a = o - uvu*((dot(v.n, o) + v.d())/(dot(v.n, uvu)*uvu.norm()));
     return line(a, a + uv);
 }
 // Returns great circle distance (lat[-90,90], long[-180,180])
-double greatcircle(double lt1, double lo1, double lt2, double
-lo2, double r) {
+double greatcircle(double lt1, double lo1, double lt2, double lo2, double r) {
     double a = M_PI*(lt1/180.0), b = M_PI*(lt2/180.0);
     double c = M_PI*((lo2-lo1)/180.0);
     return r*acos(sin(a)*sin(b) + cos(a)*cos(b)*cos(c));

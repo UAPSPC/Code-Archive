@@ -3,7 +3,7 @@ struct Edge {
   Edge (int u, int v, int w) : u(u), v(v), w(w) {}
   bool operator<(const Edge& rhs) const { return w > rhs.w; }
 };
-typedef vector<Edge> VE;
+using VE=vector<Edge>;
 vector<VE> graph;
 VE pre;
 void dijkstra(int s) {

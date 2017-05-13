@@ -43,30 +43,22 @@ double simplex(int m, int n, double c[][maxn], double x[]) {
         out[j] = j;
     for(;;) {
         for (i=ii=1;i<=m;i++)
-            if (ine[i][n]<ine[ii][n] || (ine[i][n]==ine[ii][n]
-&& basis[i]<basis[ii]))
+            if (ine[i][n]<ine[ii][n] || (ine[i][n]==ine[ii][n] && basis[i]<basis[ii]))
                 ii=i;
         if (ine[ii][n] >= -eps) break;
         for (j=jj=0;j<n;j++)
-            if (ine[ii][j]<ine[ii][jj]-eps || (ine[ii]
-[j]<ine[ii][jj]-eps && out[i]<out[j]))
+            if (ine[ii][j]<ine[ii][jj]-eps || (ine[ii] [j]<ine[ii][jj]-eps && out[i]<out[j]))
                 jj=j;
         if (ine[ii][jj] >= -eps) return -inf;
         pivot(m,n,ii,jj);
     }
     for(;;) {
         for (j=jj=0;j<n;j++)
-            if (ine[0][j]<ine[0][jj] || (ine[0][j]==ine[0][jj]
-&& out[j]<out[jj]))
+            if (ine[0][j]<ine[0][jj] || (ine[0][j]==ine[0][jj] && out[j]<out[jj]))
                 jj=j;
         if (ine[0][jj] > -eps) break;
         for (i=1,ii=0;i<=m;i++)
-            if ((ine[i][jj]>eps) &&
-                    (!ii || (ine[i][n]/ine[i][jj] < ine[ii]
-[n]/ine[ii][jj]-eps) ||
-                     ((ine[i][n]/ine[i][jj] < ine[ii][n]/ine[ii]
-[jj]+eps) &&
-                      (basis[i] < basis[ii]))))
+            if ((ine[i][jj]>eps) && (!ii || (ine[i][n]/ine[i][jj] < ine[ii] [n]/ine[ii][jj]-eps) || ((ine[i][n]/ine[i][jj] < ine[ii][n]/ine[ii] [jj]+eps) && (basis[i] < basis[ii]))))
                 ii=i;
         if (ine[ii][jj] <= eps) return inf;
         pivot(m,n,ii,jj);

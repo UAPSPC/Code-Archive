@@ -1,5 +1,4 @@
-const int MONTH_DAYS[] = {31, 28, 31, 30, 31, 30, 31, 31, 30,
-31, 30, 31};
+const int MONTH_DAYS[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 // epoch is the first year of the world
 const int epoch = 1700;
 class Date{
@@ -7,8 +6,7 @@ class Date{
         //month is zero based
     int year, month, day;
     Date(){}
-    Date(int year, int month, int day):year(year), month(month-
-1), day(day){}
+    Date(int year, int month, int day):year(year), month(month- 1), day(day){}
     bool operator < (const Date &date) const {
         if (year != date.year)
             return year < date.year;
@@ -18,8 +16,7 @@ class Date{
     }
     friend ostream& operator << (ostream &out, const Date &date)
 {
-        out << date.month+1 << "/" << date.day << "/" <<
-date.year;
+        out << date.month+1 << "/" << date.day << "/" << date.year;
         return out;
     }
 };

@@ -1,8 +1,7 @@
 // Intersects (infinite) line a-b with circle c
 // Intersection points are in 'inter'
 // 0 -> no intersection, 1 -> tangent, 2 -> two intersections
-int line_circ_inter(point a, point b, circle c, vector<point>
-&inter) {
+int line_circ_inter(point a, point b, circle c, vector<point> &inter) {
     c.c -= a; b -= a;
     point m = b*real(c.c/b);
     double d2 = norm(m-c.c);

@@ -14,12 +14,10 @@ vector<edge> cut_edges;
 vector<int> comp[maxn];
 int comp_size;
 vector<int> comp_stack;
-//
 void dfs(int x, int level){
     mark[x] = 1;
     //for components only
     comp_stack.push_back(x);
-    //
     int t = 0;
     for (int i=0 ; i<(int)g[x].size() ; i++){
         int u = g[x][i];
@@ -52,7 +50,6 @@ void dfs(int x, int level){
         }
         comp_size++;
     }
-    //
 }
 void cut_edge(){
     memset( mark , 0 , sizeof mark );
@@ -63,7 +60,6 @@ void cut_edge(){
     for (int i=0 ; i<maxn ; i++) comp[i].clear();
     comp_stack.clear();
     comp_size = 0;
-    //
     for (int i=0 ; i<n ; i++)
         if (!mark[i]) dfs(i, 0);
 }

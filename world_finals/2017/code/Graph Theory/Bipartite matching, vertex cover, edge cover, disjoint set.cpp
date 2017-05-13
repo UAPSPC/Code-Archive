@@ -70,7 +70,7 @@ void disjoint_set (vector<int> &p1, vector<int> &p2){
 }
 // edges in res cover the vertices of the graph
 // res[i].first is in part1, res[i].second is in part2
-void edge_cover(vector<pair<int,int> > &res){
+void edge_cover(vector<pair<int,int>> &res){
     set_mark();
     res.clear();
     for (int i=0;i<m;++i)
