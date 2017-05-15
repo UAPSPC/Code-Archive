@@ -1,6 +1,6 @@
 \documentclass[landscape]{article}
 
-\usepackage[margin=0.25in,footskip=0.5cm]{geometry}
+\usepackage[margin=0.25in,top=6pt,headheight=-3pt,includehead]{geometry}
 \usepackage{pdflscape}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -8,6 +8,11 @@
 \usepackage{multicol}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{titlesec}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\rhead{\thepage}
+\lhead{University of Alberta}
 
 \titleformat{\section}
 {\normalfont\large\bfseries}{\thesection}{1em}{}[{\titlerule[0.5pt]\vspace{0.1em}\titlerule[0.5pt]}]
