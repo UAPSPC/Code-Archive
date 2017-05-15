@@ -6,8 +6,8 @@
    can save you some time in a few cases. */
 #include <sys/resource.h>
 void remove_stack_limit() {
-    struct rlimit rl;
-    getrlimit(RLIMIT_STACK, &rl);
-    rl.rlim_cur = RLIM_INFINITY;
-    setrlimit(RLIMIT_STACK, &rl);
+  struct rlimit rl;
+  getrlimit(RLIMIT_STACK, &rl);
+  rl.rlim_cur = RLIM_INFINITY;
+  setrlimit(RLIMIT_STACK, &rl);
 }
