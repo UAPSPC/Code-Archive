@@ -1,6 +1,6 @@
-\documentclass{article}
+\documentclass[landscape]{article}
 
-\usepackage[margin=0.25in]{geometry}
+\usepackage[margin=0.25in,footskip=0.5cm]{geometry}
 \usepackage{pdflscape}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -21,6 +21,20 @@
     breakbytokenanywhere,
     tabsize=2
 }
+\newmintedfile[javacode]{java}{
+    autogobble,
+    breaklines,
+    frame=bottomline,
+    breakbytokenanywhere,
+    tabsize=2
+}
+\newmintedfile[plaintext]{text}{
+    autogobble,
+    breaklines,
+    frame=bottomline,
+    breakbytokenanywhere,
+    tabsize=2
+}
 
 % column seperator options
 \setlength{\columnseprule}{2pt}
@@ -32,14 +46,23 @@
     \cppcode{#2}
     \vspace{-2em}
 }
+\newcommand{\javacodesnippet}[2]{
+    \subsection{#1}
+    \javacode{#2}
+    \vspace{-2em}
+}
+\newcommand{\plaintextsnippet}[2]{
+    \subsection{#1}
+    \plaintext{#2}
+    \vspace{-2em}
+}
 
 \begin{document}
-\begin{landscape}
 \begin{multicols*}{2}
 \raggedcolumns
 
 % IMO the TOC is a waste of space and would be better filled with code
-%\tableofcontents
+\tableofcontents
 
 % -----------------------------------------------------------------------------
 % document begins here
@@ -109,8 +132,14 @@
     {(Un)Ranking of K-combination out of N $O(K \log N)$}
     {code/Combinatorics/(Un)Ranking of K-combination out of N.cpp}
 \codesnippet
-    {(Un)Ranking of K-permutation out of N [$O(K)$]}
+    {(Un)Ranking of K-permutation out of N $O(K)$}
     {code/Combinatorics/(Un)Ranking of K-permutation out of N.cpp}
+\codesnippet
+    {Digit occurrence count $O(\log n)$}
+    {code/Combinatorics/Digit occurrence count.cpp}
+\codesnippet
+    {Josephus Ring Survivor}
+    {code/Combinatorics/Josephus Ring Survivor.cpp}
 
 \section{Graph Theory}
 \codesnippet
@@ -140,6 +169,9 @@
 \codesnippet
     {Dijkstra $O(E\log V)$}
     {code/Graph Theory/Dijkstra.cpp}
+\codesnippet
+    {Bellman ford with negative cycle detection}
+    {code/Graph Theory/bellmanford_negativecycle_path.cpp}
 
 \section{Number Theory}
 \codesnippet
@@ -165,6 +197,29 @@
 
 \section{Misc}
 \codesnippet
+    {FFT $O(n\log n)$}
+    {code/Misc/fft.cpp}
+    \bigskip\noindent
+    Given a function $f: \{0,\dots,n-1\} \rightarrow C$ into the complex
+    numbers, we can write the function uniquely as $f(x) = \sum_{k
+    = 0}^{n-1} a_k z^k$, where $z = e^{2\pi \frac i n}$. The function fft
+    takes an input function $f$ (as a vector of complex numbers),
+    and returns the values $a_0,\dots,a_{n-1}$ in a vector.
+    Conversely, the inversefft function takes the
+    values $a_0,\dots,a_{n-1}$, and returns the function $f$.  The
+    Fourier transform is useful whenever we want to compute a
+    convolution, which is a function $h: \{0,\dots,n-1\} \rightarrow C$ defined
+    in terms of two other functions $f$ and $g$ by $h(m) = \sum_{k =
+    0}^{n-1} f(m) g(k-m)$, where the values of $m$ and $k-m$ are
+    considered modulo $n$. If we write $f = \sum a_k z^k, g = \sum b_k
+    z^k$, and $h = \sum c_k z^k$, then we find $c_k = a_k*z_k$, so that we
+    can compute $h = inversefft(fft(f)*fft(g))$ in $O(n\log(n))$
+    time, rather than the naive $O(n^2)$ time.  Complexity: $O(n
+    \log(n))$, where $n$ is the size of the domain of the input
+    function.  Notes: Watch out for standard floating point
+    inaccuracies, etc. This code only works if your function is
+    defined on a domain of length [$n$], where $n$ is a power of 2.
+\codesnippet
     {Longest ascending subsequence $O(n\log n)$}
     {code/Misc/Longest ascending subsequence.cpp}
 \codesnippet
@@ -174,20 +229,23 @@
     {Segment tree $O(\log n)$}
     {code/Misc/Segment tree.cpp}
 \codesnippet
+    {Lazy segment tree}
+    {code/Misc/lazy_segment_tree.cpp}
+\codesnippet
     {Equation solving $O(NM(N+M)$}
     {code/Misc/Equation solving.cpp}
 \codesnippet
     {Cubic equation solver}
     {code/Misc/Cubic equation solver.cpp}
-\codesnippet
+\javacodesnippet
     {Calendar}
-    {code/Misc/Calendar.cpp}
+    {code/Misc/javaExample.java}
 \codesnippet
     {C++ IO Format}
     {code/Misc/C++ IO format}
 \subsection{Formulas}
 %TODO
-\codesnippet
+\plaintextsnippet
     {Common bugs}
     {code/Misc/Common bugs}
 
@@ -195,5 +253,4 @@
 % -----------------------------------------------------------------------------
 
 \end{multicols*}
-\end{landscape}
 \end{document}

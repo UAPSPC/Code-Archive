@@ -22,3 +22,4 @@ multiplication to avoid overflow.
 * Output format: Spaces at the end of line. Blank lines. View
 the output in VIM if necessary
 * Add eps to double before getting floor or round
+* If setting a dp table to Inf when executing to avoid returning to this state, should look at using B/DFS instead!
