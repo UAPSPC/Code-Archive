@@ -24,7 +24,7 @@ void Union(int a, int b) {
 double mintree() {
   double weight = 0.0;
   int i, count;
-  sort(edge, edge+numedge, [](auto a, auto b) { return a.w < b.w; });
+  sort(edge, edge + numedge, [](auto a, auto b) { return a.w < b.w; });
   for(i = count = 0; count < n - 1; i++) {
     if(getRoot(edge[i].u) != getRoot(edge[i].v)) {
       Union(edge[i].u, edge[i].v);

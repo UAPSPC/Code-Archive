@@ -9,6 +9,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage{afterpage}
 
 \pagestyle{fancy}
 \rhead{\thepage}
@@ -180,6 +181,10 @@
 \codesnippet
     {Minimum spanning tree}
     {code/Graph Theory/mst.cpp}
+\codesnippet
+    {Minimum weight Steiner tree $O(|V|*3^{|S|}+|V|^3)$}
+    {code/Graph Theory/Steiner.cpp}
+
 
 \section{Number Theory}
 \codesnippet
@@ -267,6 +272,7 @@ Spherical cap: $\displaystyle V=\frac{\pi h} 6 (3a^2 + h^2)$, $A=2\pi rh$ ($a$:r
     {Common bugs}
     {code/Misc/Common bugs}
 
+\afterpage{\null\newpage}
 
 % -----------------------------------------------------------------------------
 
