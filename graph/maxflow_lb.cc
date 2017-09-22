@@ -44,6 +44,7 @@
 using namespace std;
 
 #define MAXN 500
+const int Inf = 1e9;
 
 typedef struct{
   int v, low, up, flow;
@@ -74,48 +75,48 @@ int inc_flow(int n, int src, int sink, vector<Edge> G[]){
     for(i = 0; i < q.size(); i++){
       v = q[i]; if(v == sink) break;
       for(j = 0; j < G[v].size(); j++){
-	e = G[v][j]; 
-	if(S[e.v]) continue;
-	if(e.flow < e.up){
-	  q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
-	  maxcap[e.v] = e.up-e.flow;
-	} else {
-	  for(k = 0; k < G[e.v].size(); k++){
-	    e1 = G[e.v][k];
-	    if(e1.v == v && e1.flow > e1.low){
+	    e = G[v][j]; 
+	    if(S[e.v]) continue;
+	    if(e.flow < e.up){
 	      q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
-	      maxcap[e.v] = e1.flow - e1.low;
-	      break;
+	      maxcap[e.v] = e.up-e.flow;
+	    } else {
+	      for(k = 0; k < G[e.v].size(); k++){
+	        e1 = G[e.v][k];
+	        if(e1.v == v && e1.flow > e1.low){
+	          q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
+	          maxcap[e.v] = e1.flow - e1.low;
+	          break;
+	        }
+	      }
 	    }
-	  }
-	}
       }
     }
     if(v != sink) break;
 
-    for(inc = INT_MAX, v = sink; v != src; v = pred[v])
+    for(inc = Inf, v = sink; v != src; v = pred[v])
       inc = min(inc, maxcap[v]);
     flow += inc;
 
     for(v = sink; v != src; v = pred[v]){
       found = 0;
       for(i = 0; i < G[pred[v]].size(); i++){
-	e = G[pred[v]][i];
-	if(e.v == v && e.flow + inc <= e.up){
-	  found = 1;
-	  G[pred[v]][i].flow += inc;
-	  break;
-	}
+	    e = G[pred[v]][i];
+	    if(e.v == v && e.flow + inc <= e.up){
+	      found = 1;
+	      G[pred[v]][i].flow += inc;
+	      break;
+	    }
       }
       if(!found){
-	for(i = 0; i < G[v].size(); i++){
-	  e = G[v][i];
-	  if(e.v == pred[v] && e.flow - inc >= e.low){
-	    found = 1;
-	    G[v][i].flow -= inc;
-	    break;
-	  }
-	}
+	    for(i = 0; i < G[v].size(); i++){
+	      e = G[v][i];
+	      if(e.v == pred[v] && e.flow - inc >= e.low){
+	        found = 1;
+	        G[v][i].flow -= inc;
+	        break;
+	      }
+	    }
       }
       assert(found);
     }
@@ -146,8 +147,8 @@ int maxflow_lb(int n, int src, int sink){
     addEdge(i, g[i][j].v, 0, g[i][j].up-g[i][j].low, aux);
   
   /* Add high capacity edges between old src and sink */
-  addEdge(sink, src, 0, INT_MAX, aux);  
-  addEdge(src, sink, 0, INT_MAX, aux);  
+  addEdge(sink, src, 0, Inf, aux);  
+  addEdge(src, sink, 0, Inf, aux);  
 
   /* Determine if a valid flow exists */
   if(inc_flow(n+2, nsrc, nsink, aux) != total) return -1;
@@ -157,11 +158,11 @@ int maxflow_lb(int n, int src, int sink){
     Edge e = g[i][j];
     if(e.up){
       for(size_t k = 0; k < aux[i].size(); k++)
-	if(aux[i][k].v == e.v && e.up-e.low == aux[i][k].up){
-	  g[i][j].flow = aux[i][k].flow + g[i][j].low;
-	  aux[i][k].v = -1;
-	  break;
-	}
+        if(aux[i][k].v == e.v && e.up-e.low == aux[i][k].up){
+          g[i][j].flow = aux[i][k].flow + g[i][j].low;
+          aux[i][k].v = -1;
+          break;
+        }
     }
   }
 

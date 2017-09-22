@@ -39,6 +39,7 @@
 		  which flow may be increased.  When there are no
 		  more such paths, a maximum flow/minimum cut has
 		  been found.
+        - For undirected graphs, just add an edge from u to v and from v to u
 */
 
 #include <stdio.h>
@@ -47,6 +48,7 @@
 using namespace std;
 
 #define MAXN 200
+const int Inf = 1e9;
 
 typedef struct{
   int v, cap, flow;
@@ -70,6 +72,19 @@ void addEdge(int u, int v, int cap){
   for(i = 0; i < g[v].size(); i++)   /* Add dummy reverse edge */
     if(g[v][i].v == u) return;
   
+  e.v = u; e.cap = 0;
+  g[v].push_back(e);
+}
+
+/* Should only be used when know that the edge between the two nodes is only added once */
+void addUniqueEdge(int u, int v, int cap){
+  Edge e;
+
+  /* Add edge u->v */
+  e.v = v; e.cap = cap; e.flow = 0;  
+  g[u].push_back(e);                 
+  
+  /* Add reverse edge v->u */
   e.v = u; e.cap = 0;
   g[v].push_back(e);
 }
@@ -98,24 +113,24 @@ int maxflow(int n, int source, int sink){
       v = q[i];
       if(v == sink) break;
       for(j = 0; j < g[v].size(); j++){
-	Edge e = g[v][j];
-	if(S[e.v]) continue;
-	if(e.cap && e.flow < e.cap){
-	  q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
-	  maxcap[e.v] = e.cap - e.flow;
-	} else {
-	  e1 = getEdge(e.v, v);
-	  if(e1 && e1->cap && e1->flow > 0){
-	    q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
-	    maxcap[e.v] = e1->flow;
-	  }
-	}
+	    Edge e = g[v][j];
+	    if(S[e.v]) continue;
+	    if(e.cap && e.flow < e.cap){
+	      q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
+	      maxcap[e.v] = e.cap - e.flow;
+	    } else {
+	      e1 = getEdge(e.v, v);
+	      if(e1 && e1->cap && e1->flow > 0){
+	        q.push_back(e.v); S[e.v] = 1; pred[e.v] = v;
+	        maxcap[e.v] = e1->flow;
+	      }
+	    }
       }
     }
     if(v != sink) break;  /* No more augmenting paths */
     
     /* Calculate flow */
-    for(inc = INT_MAX, v = sink; v != source; v = pred[v])
+    for(inc = Inf, v = sink; v != source; v = pred[v])
       inc = min(inc, maxcap[v]);
     flow += inc;
     
@@ -128,13 +143,13 @@ int maxflow(int n, int source, int sink){
       else if(e2 && e2->cap) e2->flow -= inc;
 
       if(e1 && e2 && e1->flow && e2->flow){
-	if(e1->flow > e2->flow){
-	  e1->flow -= e2->flow;
-	  e2->flow = 0;
-	} else {
-	  e2->flow -= e1->flow;
-	  e1->flow = 0;
-	}
+	    if(e1->flow > e2->flow){
+	      e1->flow -= e2->flow;
+	      e2->flow = 0;
+	    } else {
+	      e2->flow -= e1->flow;
+	      e1->flow = 0;
+	    }
       }
     }
   }
