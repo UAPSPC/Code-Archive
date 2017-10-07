@@ -1,5 +1,9 @@
-// Returns half of length of largest panlindrome centered at
+// Returns half of length of largest palindrome centered at
 // every position in the string
+// Add \0 at start, end, and middle to handle palindromes between
+// characters + get length of largest palindrome at each index.
+// Then, int characterBefore = i / 2; int lenToStart = P[i] / 2;
+// int lenToEnd = lenToStart - (i % 2 == 0);
 vector<int> manacher(string s) {
   vector<int> ans(s.size(), 0);
   int maxi = 0;
