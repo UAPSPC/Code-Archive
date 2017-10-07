@@ -19,6 +19,7 @@
               - Multiple edges from u to v may be added.  They are
 	        converted into a single edge with a capacity equal to
     	        their sum
+              - No flow counts need to be reset between runs.
   	      - Vertices are assumed to be numbered from 0..n-1
               - The graph is supplied as the number of nodes (n), the
 	        zero-based indexes of the source (s) and the sink (t),
@@ -40,10 +41,10 @@ struct Edge {
 
 int F[MAXN][MAXN]; //Flow of the graph
 
-int maxFlow(int n, int s, int t, vector<Edge> &M)
+int maxFlow(int n, int s, int t, const vector<Edge> &M)
 {
   int u, v, c, oh, min, df, flow, H[n], E[n], T[n], C[n][n];
-  vector<Edge>::iterator m;
+  vector<Edge>::const_iterator m;
   list<int> N;
   list<int>::iterator cur;
   vector<int> R[n];
@@ -88,30 +89,30 @@ int maxFlow(int n, int s, int t, vector<Edge> &M)
     
     while (E[u] > 0)
       if (T[u] >= (int)R[u].size()) {
-	min = 10000000;
-	for (r = R[u].begin(); r != R[u].end(); r++) {
-	  v = *r;
-	  if ((C[u][v] - F[u][v] > 0) && (H[v] < min))
-	    min = H[v];
-	}
-	H[u] = 1 + min;
-	T[u] = 0;
+        min = 10000000;
+        for (r = R[u].begin(); r != R[u].end(); r++) {
+          v = *r;
+          if ((C[u][v] - F[u][v] > 0) && (H[v] < min))
+            min = H[v];
+        }
+        H[u] = 1 + min;
+        T[u] = 0;
       }
       else {
-	v = R[u][T[u]];
-      
-	if ((C[u][v] - F[u][v] > 0) && (H[u] == H[v]+1)) {
-	  df = C[u][v] - F[u][v];
-	  if (df > E[u])
-	    df = E[u];
+        v = R[u][T[u]];
+          
+        if ((C[u][v] - F[u][v] > 0) && (H[u] == H[v]+1)) {
+          df = C[u][v] - F[u][v];
+          if (df > E[u])
+            df = E[u];
 
-	  F[u][v] += df;
-	  F[v][u]  = -F[u][v];
-	  E[u] -= df;
-	  E[v] += df;
-	}
-	else
-	  T[u]++;
+          F[u][v] += df;
+          F[v][u]  = -F[u][v];
+          E[u] -= df;
+          E[v] += df;
+        }
+        else
+          T[u]++;
       }
 
     if (H[u] > oh)
