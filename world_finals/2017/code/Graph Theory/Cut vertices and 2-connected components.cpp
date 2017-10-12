@@ -18,8 +18,7 @@ void dfs(int x, int level) {
   mark[x] = 1;
   // for components only
   comp_stack.push_back(x);
-  for(int i = 0; i < (int)g[x].size(); i++) {
-    int u = g[x][i];
+  for(int u : g[x]) {
     if(!mark[u]) {
       jad[u] = d[u] = d[x] + 1;
       dfs(u, level + 1);
@@ -49,8 +48,8 @@ void dfs(int x, int level) {
 }
 int dfs0(int x) {
   mark0[x] = 1;
-  for(int i = 0; i < (int)g[x].size(); i++)
-    if(!mark0[g[x][i]]) return dfs0(g[x][i]);
+  for(int to : g[x])
+    if(!mark0[to]) return dfs0(to);
   return x;
 }
 void cut_ver() {

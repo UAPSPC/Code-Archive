@@ -7,7 +7,7 @@ int flow_k, flow_t, mark[maxn];
 int dfs(int v, int m) {
   if(v == flow_t) return m;
   for(int i = 0, x; i < n; ++i)
-    if((c[v][i] - f[v][i] >= flow_k) && !mark[i]++)
+    if(c[v][i] - f[v][i] >= flow_k && !mark[i]++)
       if(x = dfs(i, min(m, c[v][i] - f[v][i]))) return (f[i][v] = -(f[v][i] += x)), x;
   return 0;
 }

@@ -37,11 +37,11 @@ void dfsn(int v) {
 // For 2SAT Only
 void add_edge(int a, int b) {
   adj[other(a)].push_back(b);
-  adjrev[a].push_back(other(b));
-  adj[other(b)].push_back(a);
   adjrev[b].push_back(other(a));
+  adj[other(b)].push_back(a);
+  adjrev[a].push_back(other(b));
 }
-int solve() {
+bool solve() {
   dfst = 0;
   memset(dfstime, -1, sizeof dfstime);
   for(int i = 0; i < n + n; i++) dfs(i);

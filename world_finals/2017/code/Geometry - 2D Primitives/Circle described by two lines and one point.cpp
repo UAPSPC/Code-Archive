@@ -27,6 +27,6 @@ int get_circle(point p, point a, point b, point c, point d, vector<circle> &ans)
       ta.insert(ta.end(), temp.begin(), temp.end());
     }
   }
-  for(int i = 0; i < ta.size(); i++) ans.push_back(circle(ta[i], abs(p - ta[i])));
+  for(point pt : ta) ans.push_back(circle(pt, abs(p - pt)));
   return ans.size();
 }

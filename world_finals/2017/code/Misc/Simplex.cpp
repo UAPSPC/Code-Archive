@@ -50,7 +50,7 @@ double simplex(int m, int n, double c[][maxn], double x[]) {
       if(ine[0][j] < ine[0][jj] || (ine[0][j] == ine[0][jj] && out[j] < out[jj])) jj = j;
     if(ine[0][jj] > -eps) break;
     for(i = 1, ii = 0; i <= m; i++)
-      if((ine[i][jj] > eps) && (!ii || (ine[i][n] / ine[i][jj] < ine[ii][n] / ine[ii][jj] - eps) || ((ine[i][n] / ine[i][jj] < ine[ii][n] / ine[ii][jj] + eps) && (basis[i] < basis[ii])))) ii = i;
+      if(ine[i][jj] > eps && (!ii || (ine[i][n] / ine[i][jj] < ine[ii][n] / ine[ii][jj] - eps) || (ine[i][n] / ine[i][jj] < ine[ii][n] / ine[ii][jj] + eps && basis[i] < basis[ii]))) ii = i;
     if(ine[ii][jj] <= eps) return inf;
     pivot(m, n, ii, jj);
   }

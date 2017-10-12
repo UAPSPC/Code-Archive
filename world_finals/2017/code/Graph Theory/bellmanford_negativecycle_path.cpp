@@ -25,9 +25,8 @@ int ExpandPredecessor(int node) {
 }
 void ExpandNegativeCycle(int node) {
   inNegativeCycle[node] = true;
-  for(int e = 0; e < allEdgesFromNode[node].size(); ++e) {
-    int travelTo = allEdgesFromNode[node][e].to;
-    if(!inNegativeCycle[travelTo]) ExpandNegativeCycle(travelTo);
+  for(Edge& e : allEdgesFromNode[node]) {
+    if(!inNegativeCycle[e.to]) ExpandNegativeCycle(e.to);
   }
 }
 void FinishUpBellmanFord() {

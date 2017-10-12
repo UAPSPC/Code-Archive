@@ -6,20 +6,20 @@ const int maxn = 2020, maxm = 2020;
 int n, m;
 vector<int> a[maxn], b[maxm];
 int matched[maxn], mark[maxm], mate[maxm];
-int dfs(int v) {
+bool dfs(int v) {
   if(v < 0) return 1;
-  for(int i = 0; i < a[v].size(); ++i)
-    if(!mark[a[v][i]]++ && dfs(mate[a[v][i]])) return matched[mate[a[v][i]] = v] = 1;
+  for(int to : a[v])
+    if(!mark[to]++ && dfs(mate[to])) return matched[mate[to] = v] = 1;
   return 0;
 }
-int set_mark() {
+void set_mark() {
   memset(matched, 0, sizeof matched);
   memset(mate, -1, sizeof mate);
   memset(mark, 0, sizeof mark);
   for(int i = 0; i < n; ++i)
-    for(int j = 0; j < a[i].size(); ++j)
-      if(mate[a[i][j]] < 0) {
-        matched[mate[a[i][j]] = i] = 1;
+    for(int to : a[i])
+      if(mate[to] < 0) {
+        matched[mate[to] = i] = 1;
         break;
       }
   for(int i = 0; i < n; ++i)
@@ -34,7 +34,7 @@ void matching(vector<pair<int, int>> &res) {
   set_mark();
   res.clear();
   for(int i = 0; i < m; ++i)
-    if(mate[i] >= 0) res.push_back(pair<int, int>(mate[i], i));
+    if(mate[i] >= 0) res.push_back(make_pair(mate[i], i));
 }
 // p1: vertices in part1, p2: vertices in part2
 // union of p1 and p2 cover the edges of the graph
@@ -70,9 +70,9 @@ void edge_cover(vector<pair<int, int>> &res) {
   res.clear();
   for(int i = 0; i < m; ++i)
     if(mate[i] >= 0)
-      res.push_back(pair<int, int>(mate[i], i));
+      res.push_back(make_pair(mate[i], i));
     else if(b[i].size())
-      res.push_back(pair<int, int>(b[i][0], i));
+      res.push_back(make_pair(b[i][0], i));
   for(int i = 0; i < n; ++i)
-    if(!matched[i] && a[i].size()) res.push_back(pair<int, int>(i, a[i][0]));
+    if(!matched[i] && a[i].size()) res.push_back(make_pair(i, a[i][0]));
 }

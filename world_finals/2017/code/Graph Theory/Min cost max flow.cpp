@@ -17,6 +17,8 @@ int dijkstra() {
   memset(p, -1, sizeof p);
   for(int i = 0; i <= n; i++) d[i] = inf;
   d[s] = 0;
+  // Doesn't use a priority queue due to it not really improving
+  // the algorithm - will still be O(n^2)
   while(1) {
     int u = n;
     for(int i = 0; i < n; i++)
