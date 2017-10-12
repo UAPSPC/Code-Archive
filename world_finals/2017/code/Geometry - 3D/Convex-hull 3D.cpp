@@ -6,7 +6,7 @@
 // cover all surface of convex hull
 // Each element of hull is a hullFace which has indices of three
 // vertices of a triangle
-bool operator==(const point3 &p, const point3 &q) { return (abs(p.x - q.x) < eps) && (abs(p.y - q.y) < eps) && (abs(p.z - q.z) < eps); }
+bool operator==(const point3 &p, const point3 &q) { return abs(p.x - q.x) < eps && abs(p.y - q.y) < eps && abs(p.z - q.z) < eps; }
 point3 triNormal(const point3 &a, const point3 &b, const point3 &c) { return cross(a, b) + cross(b, c) + cross(c, a); }
 class hullFinder {
   const vector<point3> &pts;
@@ -23,9 +23,9 @@ public:
     if(n < 4) return hull;
     int p3 = 2;
     point3 tNorm;
-    while((p3 < n) && ((tNorm = triNormal(pts[0], pts[1], pts[p3])) == point3())) ++p3;
+    while(p3 < n && (tNorm = triNormal(pts[0], pts[1], pts[p3])) == point3()) ++p3;
     int p4 = p3 + 1;
-    while((p4 < n) && (abs(dot(tNorm, pts[p4] - pts[0])) < eps)) ++p4;
+    while(p4 < n && abs(dot(tNorm, pts[p4] - pts[0])) < eps) ++p4;
     if(p4 >= n) return hull;
     edges.clear();
     edges.push_front(hullEdge(0, 1));
@@ -39,11 +39,11 @@ public:
     setF2(edges.front(), 1);
     addPt(p4);
     for(int i = 2; i < n; ++i)
-      if((i != p3) && (i != p4)) addPt(i);
+      if(i != p3 && i != p4) addPt(i);
     for(list<hullEdge>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-      if((e->u < e->v) && (e->u < e->f1))
+      if(e->u < e->v && e->u < e->f1)
         hull.push_back(hullFace(e->u, e->v, e->f1, e->n1));
-      else if((e->v < e->u) && (e->v < e->f2))
+      else if(e->v < e->u && e->v < e->f2)
         hull.push_back(hullFace(e->v, e->u, e->f2, e->n2));
     }
     return hull;

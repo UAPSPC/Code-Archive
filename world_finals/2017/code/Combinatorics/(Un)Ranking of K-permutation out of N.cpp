@@ -30,6 +30,6 @@ long long rec_rank_perm(int n, int k, vector<int> &pirev, vector<int> &pi) {
 long long rank_perm(int n, vector<int> &id, vector<int> pi) {
   for(int i = 0; i < pi.size(); i++) id[pi[i]] = i + n - pi.size();
   long long ans = rec_rank_perm(n, pi.size(), id, pi);
-  for(int i = 0; i < pi.size(); i++) id[pi[i]] = pi[i];
+  for(int v : pi) id[v] = v;
   return ans;
 }

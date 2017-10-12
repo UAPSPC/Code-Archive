@@ -7,6 +7,6 @@ int get_circle(point a, point b, point c, point d, vector<circle> &ans) {
   point pb = (b - a) * point(0, 1) + pa;
   vector<point> ta;
   parabola_line_inter(a, c, d, pa, pb, ta);
-  for(int i = 0; i < ta.size(); i++) ans.push_back(circle(ta[i], abs(a - ta[i])));
+  for(point p : ta) ans.push_back(circle(p, abs(a - p)));
   return ans.size();
 }

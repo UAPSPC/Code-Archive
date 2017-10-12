@@ -19,8 +19,7 @@ void clear_flow() {
   for(int i = 0; i < maxn; ++i) adj[i].clear();
 }
 int advance(int v) {
-  for(int i = 0; i < adj[v].size(); ++i) {
-    int w = adj[v][i];
+  for(int w : adj[v]) {
     if(c[v][w] > 0 && dist[v] == dist[w] + 1) {
       par[w] = v;
       return w;
@@ -31,8 +30,7 @@ int advance(int v) {
 int retreat(int v) {
   int old = dist[v];
   --dcount[dist[v]];
-  for(int i = 0; i < adj[v].size(); ++i) {
-    int w = adj[v][i];
+  for(int w : adj[v]) {
     if(c[v][w] > 0) dist[v] = min(dist[v], dist[w]);
   }
   ++dist[v];
@@ -59,8 +57,7 @@ void bfs(int v) {
   while(!q.empty()) {
     v = q.front();
     q.pop();
-    for(int i = 0; i < adj[v].size(); ++i) {
-      int w = adj[v][i];
+    for(int w : adj[v]) {
       if(c[w][v] > 0 && dist[w] == -1) {
         dist[w] = dist[v] + 1;
         ++dcount[dist[w]];
