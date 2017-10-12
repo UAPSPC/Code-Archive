@@ -16,7 +16,9 @@
                   Cambridge, MA: Massachusetts Institute of
                   Technology, 2009.
    -----------------------------------------------------------------
-   Reliability
+   Reliability  UNKNOWN!!!
+                If you test this code, please report back.
+                
    Notes        Returns the string index at which the pattern is
                   first matched or -1 if the patten cannot be
                   matched.
