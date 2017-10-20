@@ -1,145 +1,158 @@
+/* Author: Zachary Friggstad, 2017
+
+   The standard FFT of a sequence.
+   Given n = 2^k complex numbers a[i], i=0...n-1 r, this will compute all n
+   values \sum_i a[i]*zeta^{i+j} for j=0...n-1 in O(n * log(n)) time where
+   zeta = exp(2 \pi i / n) is the standard n'th root of unity.
+
+   Multiplication of polynomials.
+   Given two polynomials f,g, will compute the product f*g
+   in O(n * log(n)) time where n = max(deg(f), deg(g)).
+
+   This is a numerical algorithm, in the sense calculations are performed
+   with doubles and may be very slightly off, but I suspect it will not be an
+   issu in any contest problem that requires FFT.
+
+   Use:
+   fft(f, v, invert):
+    - f is a vector of complex values of size 2^k for some k
+    - v is a vector of complex values that stores the result
+    - invert is a boolean indicating if we should compute the fft or inverse fft of f
+
+   multiply(f, g, res):
+    - f, g are two vectors of complex values representing polynomials
+      e.g. to represent x^3 - 3x + 7 the corresponding vector is {7, -3, 0, 1}
+      (each being a "complex" type) where 7 has index 0 and 1 has index 3 (the degree)
+    - res is a complex vector that will store the result
+
+   Note:
+    - f and g do not need to have sizes being powers of 2
+    - after, we will have res.size() = f.size() + g.size() - 2
+    - if f and g have leading 0s, then so will res
+
+   Reference:
+   Introduction to Algorithms by Cormen, Lieserson, Rivest, and Stein
+   This is the "iterative" version that does not use recursion (except
+     when computing the bit reversals).
+
+   Reliability:
+   kinversions - Open Kattis
+   tiles - icpc.kattis.com (World Finals 2015)
+   polymul2 - Open Kattis
+   matchings - Open Kattis
+*/
+
+
 #include <iostream>
-#include <cstdio>
 #include <complex>
-#include <cmath>
 #include <vector>
+#include <cassert>
 
 using namespace std;
 
-/* C++: Discrete Fast Fourier Transform
-   ====================================
-   Description: Given a function f: {0,...,n-1} -> C into the complex numbers, we
-   can write the function uniquely as f(x) = Sum_{k = 0}^{n-1} ak z^k, where
-   z = e^{2pi i/n}. The function fft takes an input function f (as a vector of
-   complex numbers), and returns the values a0,...,a{n-1} in a vector. Conversely,
-   the inversefft function takes the valuesa0,...,a{n-1}, and returns the function f.
+typedef double ld; // can always try long double if you are concerned
+typedef complex<ld> cplx;
+typedef vector<cplx> vc;
+typedef vector<int> vi;
 
-   The Fourier transform is useful whenever we want to compute a convolution,
-   which is a function h: {0,...,n-1} -> C defined in terms of two other functions
-   f and g by h(m) = Sum_{k = 0}^{n-1} f(m) g(k-m), where the values of m and k-m
-   are considered modulo n. If we write f = Sum ak z^k, g = Sum bk z^k, and h = Sum ck z^k,
-   then we find ck = ak*zk, so that we can compute h = inversefft(fft(f)*fft(g)) in O(n log(n))
-   time, rather than the naive O(n^2) time.
+/* Compute the fft of f, store in v.
+   invert will compute the inverse of the fft.
 
-   Complexity: O(n log(n)), where n is the size of the domain of the input function.
-   ------------------------
-   Author: Jacob Denson
-   Date: May 14, 2017
-   References: Essentially transliterated from
-   https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm,
-   aside from the bugs in the psuedocode on that page. For a good
-   explanation of the algorithm, see Stein and Shakarchi, Vol 1. Chapter 7.
-   ------------------------
-   Reliability: 0 (But I have written tests, see below. Could be tested on the
-   ABABA problem from NAIPC 2016, I think - Ask Zac for more info).
-   Notes: Watch out for standard floating point inaccuracies, etc. This code
-   only works if your function is defined on a domain of length [n], where
-   n is a power of 2.
+   f.size() *MUST* be a power of 2
+
+   In particular, the regular fft (invert == false) will not normalize by
+   1/f.size() but reverse fft (invert == true) will normalize. This is the easiest
+   approach for convolution/polynomial multiplication.
 */
+void fft(const vc& f, vc& v, bool invert) {
+    int n = f.size();
+    assert(n > 0 && (n&(n-1)) == 0);
+    v.resize(n);
 
-// f: The function we compute the transform of.
-// n: The dimension of the function f.
-// s: The skip value, which should be set to 1 at the start of the algorithm.
-// r: An n'th primitive root of unity.
-// o: The vector we want to load the output values into.
-void fft(vector<complex<long double>>& f, long long fb, long long n, long long s,
-    vector<complex<long double>>& o, long long ob, complex<long double> r) {
-    if (n == 1) o[ob] = f[fb];
+    for (int i = 0; i < n; ++i) {
+        int r = 0, k = i;
+        for (int j = 1; j < n; j <<= 1, r = (r<<1)|(k&1), k >>= 1);
+        v[i] = f[r];
+    }
 
-    else {
-        fft(f, fb, n/2, 2*s, o, ob, pow(r,2));
-        fft(f, fb + s, n/2, 2*s, o, ob + n/2, pow(r,2));
-
-        for (int k = 0; k < n/2; k++) {
-            auto x = o[ob + k];
-            o[ob + k] = (x + pow(r,k)*o[ob + k + n/2])/2.0L;
-            o[ob + k + n/2] = (x - pow(r,k)*o[ob + k + n/2])/2.0L;
+    for (int m = 2; m <= n; m <<= 1) {
+        int mm = m>>1;
+        cplx zeta = polar<ld>(1, (invert?2:-2)*M_PI/m);
+        for (int k = 0; k < n; k += m) {
+            cplx om = 1;
+            for (int j = 0; j < mm; ++j, om *= zeta) {
+                cplx tl = v[k+j], th = om*v[k+j+mm];
+                v[k+j] = tl+th;
+                v[k+j+mm] = tl-th;
+            }
         }
     }
+    if (invert) for (auto& z : v) z /= ld(n);
 }
 
-vector<complex<long double>> fft(vector<complex<long double>>& f) {
-    long long n = f.size();
-    complex<long double> r(cos(-2*M_PI/n), sin(-2*M_PI/n));
-    vector<complex<long double>> o(n);
-    fft(f,0,n,1,o,0,r);
-    return o;
-}
+/* Multiply polynomials f and g. Equivalently, compute the convolution of
+   the sequences f[0], ..., f[df] and g[0], ..., g[dg]).
 
-vector<complex<long double>> inversefft(vector<complex<long double>>& f) {
-    long long n = f.size();
+   IMPORTANT: if f is the zero polynomial, should still have a 0 entry (i.e.
+   f.size() > 0 should always hold). Same for g.
 
-    for (int k = 0; k < n; k++) f[k] = conj(f[k]);
+   res - holds the results: the coefficients from res[0] to res[df+dg].
 
-    vector<complex<long double>> o = fft(f);
+   Can use f = g (reference to same vector) safely.
+   f,g are not constant because they are padded with 0s, but then are reverted
+   to their original form again.
+*/
+void multiply(vc& f, vc& g, vc& res) {
+    int df = f.size()-1, dg = g.size()-1;
 
-    for (int k = 0; k < n; k++) f[k] = conj(f[k]);
-    for (int k = 0; k < n; k++) o[k] = ((long double) n)*conj(o[k]);
+    assert(df >= 0 && dg >= 0);
 
-    return o;
-}
+    int n = df+dg+1;
+    while (n&(n-1)) ++n;
 
+    f.resize(n,0);
+    g.resize(n,0);
+    vc tmp;
 
+    fft(f, tmp, false);
+    fft(g, res, false);
 
+    for (int i = 0; i < n; ++i) tmp[i] *= res[i];
 
+    fft(tmp, res, true);
 
-
-
-
-
-
-
-void print_complex(vector<complex<long double>> lst) {
-    for (auto x: lst) { cout << x << endl; }
-    cout << endl;
+    f.resize(df+1);
+    g.resize(dg+1);
+    res.resize(df+dg+1);
 }
 
 int main() {
-    // Test 1: Fourier transform of {1,0} is {1/2,1/2}
-    cout << "Test 1: " << endl;
-    vector<complex<long double>> test1 = {1,0};
-    print_complex(test1);
+    int df, dg;
+    cout << "This test will multiply two polynomials with real coefficients\n"
+         << "First enter the degrees of f and g, respectively: ";
+    cin >> df >> dg;
 
-    auto output1 = fft(test1);
-    print_complex(output1);
+    vc f(df+1), g(dg+1), res;
 
-    auto inverse1 = inversefft(output1);
-    print_complex(inverse1);
+    cout << "Now the " << df+1 << " coefficients of f, starting with the leading term\n"
+         << "e.g. enter -3*x^3 + 2x + 1 as -3 0 2 1\n";
+    for (int i = df; i >= 0; --i) {
+        ld x;
+        cin >> x;
+        f[i] = cplx(x);
+    }
+    cout << "Same for g\n";
+    for (int i = dg; i >= 0; --i) {
+        ld x;
+        cin >> x;
+        g[i] = cplx(x);
+    }
 
-    // Test 2: Fourier transform of {3,0,...,0} is {3/8,3/8,...,3/8}.
-    cout << "Test 2: " << endl;
-    vector<complex<long double>> test2 = {3,0,0,0,0,0,0,0};
-    print_complex(test2);
-    auto output2 = fft(test2);
-    print_complex(output2);
-    auto inverse2 = inversefft(output2);
-    print_complex(inverse2);
+    multiply(f, g, res);
 
-    // Test 3: Fourier transform of {0,0,...,0} is {0,0,...,0}
-    cout << "Test 3: " << endl;
-    vector<complex<long double>> test3 = {0,0,0,0};
-    print_complex(test3);
-    auto output3 = fft(test3);
-    print_complex(output3);
-    auto inverse3 = inversefft(output3);
-    print_complex(inverse3);
+    cout << "Coefficients, starting with the leading term\n";
+    for (int i = df+dg; i >= 0; --i)
+        cout << res[i].real() << (i?' ':'\n');
 
-    // Test 4: Fourier transform of {1,1,1,1} is {1,0,0,0}
-    cout << "Test 4: " << endl;
-    vector<complex<long double>> test4 = {1,1,1,1};
-    print_complex(test4);
-    auto output4 = fft(test4);
-    print_complex(output4);
-    auto inverse4 = inversefft(output4);
-    print_complex(inverse4);
-
-    // Test 5: Fourier transform of {0,1,0,0,0,0,0,0} is
-    // {0.125, 0.88 - 0.88i, -0.125i, -0.88-0.88i, -0.125,-0.088+0.088i, 0.125i, 0.088+0.088i}
-    cout << "Test 5: " << endl;
-    vector<complex<long double>> test5 = {0,1,0,0,0,0,0,0};
-    print_complex(test5);
-    auto output5 = fft(test5);
-    print_complex(output5);
-    auto inverse5 = inversefft(output5);
-    print_complex(inverse5);
+    return 0;
 }
