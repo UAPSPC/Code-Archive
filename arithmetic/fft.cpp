@@ -11,7 +11,7 @@
 
    This is a numerical algorithm, in the sense calculations are performed
    with doubles and may be very slightly off, but I suspect it will not be an
-   issu in any contest problem that requires FFT.
+   issue in any contest problem that requires FFT.
 
    Use:
    fft(f, v, invert):
