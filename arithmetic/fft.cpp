@@ -32,8 +32,7 @@
 
    Reference:
    Introduction to Algorithms by Cormen, Lieserson, Rivest, and Stein
-   This is the "iterative" version that does not use recursion (except
-     when computing the bit reversals).
+   This is the "iterative" version that does not use recursion.
 
    Reliability:
    kinversions - Open Kattis
