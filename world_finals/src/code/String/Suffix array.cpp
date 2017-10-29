@@ -1,68 +1,84 @@
-// Calculate the order of suffix starting from j-th character
-// with length 2^i compared to other starting points
-// order[i][j]>=0: order of suffix starting from j-th character
-// with length 2^i
-// suffix(j1,i)=suffix(j2,i) -> order[i][j1]=order[i][j2]
-// suffix(j1,i)<suffix(j2,i) -> order[i][j1]<order[i][j2]
-typedef pair<int, int> pii;
-typedef pair<pii, int> p3i;
-const int maxn = 10000;
-const int maxlog = 100;
-int order[maxlog][maxn];
-// if N*log^2(N) is good enough don't write the next function
-vector<p3i> buck[maxn];
-void radix(vector<p3i> &a, int n, int t) {
-  for(int i = 0; i <= n; i++) buck[i].clear();
-  for(int i = 0; i < a.size(); i++) {
-    int x;
-    switch(t) {
-    case 1: x = a[i].first.first; break;
-    case 2: x = a[i].first.second; break;
-    case 3: x = a[i].second; break;
+// Calculate the suffix array for a string. Includes code for
+// LCP and how to code up string matching range.
+typedef pair<int, int> ii;
+
+const int MaxN = 100010;
+char T[MaxN];
+int N;
+int SA[MaxN], tempSA[MaxN]; // SA[i] = index of suffix i in string
+int RA[MaxN], tempRA[MaxN]; // Rank of i in T
+int c[MaxN];
+void radixSort(int k) {
+    int i, maxi = max(300, N);
+    memset(c, 0, sizeof c);
+    for (i = 0; i < N; ++i)
+        c[i + k < N ? RA[i + k] : 0]++; // TODO: Mod for circular
+    int sum = 0;
+    for (i = 0; i < maxi; ++i) {
+        int t = c[i]; c[i] = sum; sum += t;
     }
-    buck[x + 1].push_back(a[i]);
-  }
-  a.clear();
-  for(int i = 0; i <= n; i++)
-    for(int j = 0; j < buck[i].size(); j++) a.push_back(buck[i][j]);
+    for (i = 0; i < N; ++i) {
+        // TODO: Mod for circular
+        int indexToC = SA[i] + k < N ? RA[SA[i] + k] : 0; 
+        tempSA[c[indexToC]++] = SA[i];
+    }
+    for (i = 0; i < N; ++i) SA[i] = tempSA[i];
 }
-void suffix_array(vector<int> in) {
-  int n = in.size();
-  vector<p3i> sorted;
-  for(int i = 0; i < n; i++) sorted.push_back(p3i(pii(in[i], in[i]), i));
-  sort(sorted.begin(), sorted.end());
-  for(int k = 0; k < maxlog; k++) {
-    int cur = 0;
-    for(int i = 0; i < n; i++) {
-      if(i > 0 && sorted[i - 1].first != sorted[i].first) cur++;
-      order[k][sorted[i].second] = cur;
+
+void constructSA() {
+    int i;
+    for (i = 0; i < N; ++i) RA[i] = T[i];
+    for (i = 0; i < N; ++i) SA[i] = i;
+    for (int k = 1; k < N; k <<= 1) {
+        radixSort(k); radixSort(0);
+        int r = 0;
+        tempRA[SA[0]] = r;
+        for (i = 1; i < N; ++i) {
+            tempRA[SA[i]] =
+                (RA[SA[i]] == RA[SA[i - 1]] && 
+                 RA[(SA[i] + k) %N] == RA[(SA[i-1] + k) %N]) ? r : ++r;
+        }
+        for (i = 0; i < N; ++i) RA[i] = tempRA[i];
+        if (RA[SA[N - 1]] == N - 1) break;
     }
-    for(int i = 0; i < n; i++) {
-      int o1 = order[k][i];
-      int o2 = -1;
-      // Uncomment next line for non-circular sorting
-      // if (i+(1<<k)<n)
-      o2 = order[k][(i + (1 << k)) % n];
-      sorted[i] = p3i(pii(o1, o2), i);
-    }
-    // if n*log^2(n) is good enough use the following line
-    // instead of the three radixes
-    // sort(sorted.begin(), sorted.end());
-    radix(sorted, n, 3);
-    radix(sorted, n, 2);
-    radix(sorted, n, 1);
-  }
 }
-int common_prefix(int n, int i, int j) {
-  int ans = 0;
-  // Uncomment next line for non-circular sorting
-  // if(i==j) return n-i-1;
-  for(int k = maxlog - 1; k >= 0; k--) {
-    if(order[k][i] == order[k][j]) {
-      i = (i + (1 << k)) % n;
-      j = (j + (1 << k)) % n;
-      ans += 1 << k;
+
+// Returns inclusive set of all matches of P[0:pLen] into SA.
+// Returns -1, -1 if no matches exist.
+char P[MaxN];
+ii StringMatching(int pLen) { // O(|P|log|N|)
+    int low = 0, high = N-1;
+    while (low < high) {
+        int mid = (low + high) / 2;
+        int result = strncmp(T + SA[mid], P, pLen);
+        if (result >= 0) high = mid;
+        else low = mid + 1;
     }
-  }
-  return min(ans, n);
+    if (strncmp(T + SA[low], P, pLen) != 0) return ii(-1, -1);
+    ii ans; ans.first = low;
+    low = 0; high = N - 1;
+    while (low < high) {
+        int mid = (low + high) / 2;
+        int result = strncmp(T + SA[mid], P, pLen);
+        if (result > 0) high = mid;
+        else low = mid + 1;
+    }
+    if (strncmp(T + SA[high], P, pLen) != 0) --high;
+    ans.second = high;
+    return ans;
+}
+
+
+int LCP[MaxN]; // LCP[i] = prefix size that SA[i] has in common with SA[i-1]
+void ComputeLCP() {
+    int Phi[MaxN], PLCP[MaxN], i, L;
+    Phi[SA[0]] = -1;
+    for (i = 1; i < N; ++i) Phi[SA[i]] = SA[i-1];
+    for (L = i = 0; i < N; ++i) {
+        if (Phi[i] == -1) { PLCP[i] = 0; continue; }    
+        while (T[i + L] == T[Phi[i] + L]) ++L;
+        PLCP[i] = L;
+        L = max(L - 1, 0);
+    }
+    for (int i = 0; i < N; ++i) LCP[i] = PLCP[SA[i]];
 }
