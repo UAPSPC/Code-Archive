@@ -70,6 +70,7 @@ ii StringMatching(int pLen) { // O(|P|log|N|)
 
 
 int LCP[MaxN]; // LCP[i] = prefix size that SA[i] has in common with SA[i-1]
+// Last character MUST be different than all other characters!
 void ComputeLCP() {
     int Phi[MaxN], PLCP[MaxN], i, L;
     Phi[SA[0]] = -1;
