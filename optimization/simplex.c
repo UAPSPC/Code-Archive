@@ -1,26 +1,30 @@
+// Zac's Caution!
+// This seems broken, I am not certain the pivoting will always work.
+// Best to use simplex.cpp
+
 //  Simplex Method for Linear Programming
-// 
+//
 //  m - number of (less than) inequalities
 //  n - number of variables
-// 
+//
 //  C - (m+1) by (n+1) array of coefficients:
-// 
+//
 //      row 0        - objective function coefficients
 //      row 1:m      - less-than inequalities
-// 
+//
 //      column 0:n-1 - inequality coefficients
 //      column n     - inequality constants (0 for objective function)
-// 
+//
 //  X[n] - result variables
-// 
+//
 //  return value - maximum value of objective function
 //                 (-inf for infeasible, inf for unbounded)
-// 
+//
 
 #define MAXM 400   // leave one extra
 #define MAXN 400   // leave one extra
 #define EPS 1e-9
-#define INF 1.0/0.0 
+#define INF 1.0/0.0
 
 double A[MAXM][MAXN];
 int basis[MAXM], out[MAXN];
@@ -54,22 +58,22 @@ double simplex(int m, int n, double C[][MAXN], double X[]) {
              ii=i;
       }
       if (A[ii][n] >= -EPS) break;
-      for (j=jj=0;j<n;j++) 
+      for (j=jj=0;j<n;j++)
          if (A[ii][j]<A[ii][jj]-EPS
                  || (A[ii][j]<A[ii][jj]-EPS && out[i]<out[j]))
              jj=j;
       if (A[ii][jj] >= -EPS) return -INF;
       pivot(m,n,ii,jj);
    }
-   
+
    for(;;) {
-      for (j=jj=0;j<n;j++) 
+      for (j=jj=0;j<n;j++)
          if (A[0][j]<A[0][jj]
                  || (A[0][j]==A[0][jj] && out[j]<out[jj]))
              jj=j;
       if (A[0][jj] > -EPS) break;
       for (i=1,ii=0;i<=m;i++)
-         if (A[i][jj]>EPS && 
+         if (A[i][jj]>EPS &&
              (!ii || A[i][n]/A[i][jj]<A[ii][n]/A[ii][jj]-EPS ||
               (A[i][n]/A[i][jj]<A[ii][n]/A[ii][jj]+EPS
                   && basis[i]<basis[ii])))
@@ -82,7 +86,7 @@ double simplex(int m, int n, double C[][MAXN], double X[]) {
    for (i=1;i<=m;i++) if (basis[i] >= 0) X[basis[i]] = A[i][n];
    return A[0][n];
 }
-   
+
 void print(int m, int n, char *msg) {  // not used -- debug only
    int i,j;
    printf("%s\n",msg);
