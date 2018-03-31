@@ -46,6 +46,7 @@
     Kattis goatropes
     UVa 802 - Just use c[i] = 0 for all i for the feasibility check.
     UVa 10498
+    UVA 1049 - Remember to reset LP between runs
 */
 
 #include <iostream>
