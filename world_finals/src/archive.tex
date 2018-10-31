@@ -246,10 +246,13 @@ value);
     {Unbounded maximum stack size}
     {code/Misc/stack_size.cpp}
 \subsection{Formulas}
-Pick's Theorem: $\displaystyle A=i+\frac b 2 - 1$ ($A$:area, $i$:interior, $b$:boundary points)\\
+Pick's Theorem: $\displaystyle A=i+\frac b 2 - 1$ ($A$: area, $i$: interior, $b$: boundary points)\\
 Catalan numbers: $C_n=\displaystyle\frac 1 {n+1} {2n \choose n}=\frac{4i-2}{i+1}C_{n-1}=\sum_{i=0}^{n-1}C_iC_{n-1-i},C_0=1$\\
-Triangle: $c^2=a^2+b^2-2ab\cos (\theta_c)$, $\displaystyle s=\frac 1 2(a + b + c)$, $\displaystyle inradius=\sqrt{\frac{(s-a)(s-b)(s-c)}{s}}$, $exradii_a=\displaystyle\sqrt{\frac{s(s-b)(s-c)}{s-a}}$\\
-Spherical cap: $\displaystyle V=\frac{\pi h} 6 (3a^2 + h^2)$, $A=2\pi rh$ ($a$:radius of base of cap, $r$: radius of sphere, $h$: height of cap)
+Triangle: $c^2=a^2+b^2-2ab\cos (\theta_c)$, $\displaystyle s=\frac 1 2(a + b + c)$, $\displaystyle \mathrm{inradius}=\sqrt{\frac{(s-a)(s-b)(s-c)}{s}}$, $\mathrm{exradii}_a=\displaystyle\sqrt{\frac{s(s-b)(s-c)}{s-a}}$\\
+Spherical cap: $\displaystyle V=\frac{\pi h} 6 (3a^2 + h^2)$, $A=2\pi rh$ ($a$: radius of base of cap, $r$: radius of sphere, $h$: height of cap)\\
+Probability of either: $\displaystyle \mathbb P(A\cup B)=\mathbb P(A)+\mathbb P(B)-\mathbb P(A\cap B)$\\
+Probability of both: $\displaystyle \mathbb P(A\cap B)=\mathbb P(A)\mathbb P(B\mid A)$\\
+Bayes' formula: $\displaystyle \mathbb P(A\mid B)=\frac{\mathbb P(B\mid A)\mathbb P(A)}{\mathbb P(B)}$
 %TODO
 \subsection{Submission Checklist}
 \begin{itemize}
