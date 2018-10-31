@@ -1,6 +1,6 @@
-using double = ld; // can always try long double if you are concerned
-using complex < ld >= cplx;
-using vector < cplx >= vc;
+using ld = double; // can always try long double if you are concerned
+using cplx = complex<ld>;
+using vc = vector<cplx>;
 // Compute the (I)FFT of f, store in v.
 // f.size() *MUST* be a power of 2
 void fft(const vc &f, vc &v, bool invert) {
