@@ -15,7 +15,7 @@ void dijkstra(int source) {
     int x = *mark.rbegin();
     mark.erase(x);
     if(d[x] == -1) break;
-    for(auto &it : v[x]) {
+    for(auto &it: v[x]) {
       if(d[it.first] == -1 || d[x] + it.second < d[it.first]) {
         mark.erase(it.first);
         d[it.first] = d[x] + it.second;

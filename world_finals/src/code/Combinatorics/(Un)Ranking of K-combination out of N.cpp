@@ -25,7 +25,7 @@ long long rank_comb(int n, vector<int> c) {
 }
 struct comp {
   long long base;
-  comp(long long base) : base(base) {}
+  comp(long long base): base(base) {}
   int operator()(const long long &a, const long long &val) { return (base - a) > val; }
 };
 // Returns k-combination of rank 'r' of n objects

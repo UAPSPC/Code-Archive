@@ -19,20 +19,18 @@ void clear_flow() {
   for(int i = 0; i < maxn; ++i) adj[i].clear();
 }
 int advance(int v) {
-  for(int w : adj[v]) {
+  for(int w: adj[v])
     if(c[v][w] > 0 && dist[v] == dist[w] + 1) {
       par[w] = v;
       return w;
     }
-  }
   return -1;
 }
 int retreat(int v) {
   int old = dist[v];
   --dcount[dist[v]];
-  for(int w : adj[v]) {
+  for(int w: adj[v])
     if(c[v][w] > 0) dist[v] = min(dist[v], dist[w]);
-  }
   ++dist[v];
   ++dcount[dist[v]];
   if(dcount[old] == 0) return -1;
@@ -57,13 +55,12 @@ void bfs(int v) {
   while(!q.empty()) {
     v = q.front();
     q.pop();
-    for(int w : adj[v]) {
+    for(int w: adj[v])
       if(c[w][v] > 0 && dist[w] == -1) {
         dist[w] = dist[v] + 1;
         ++dcount[dist[w]];
         q.push(w);
       }
-    }
   }
 }
 int find_flow(int n, int s, int t) {
@@ -73,14 +70,9 @@ int find_flow(int n, int s, int t) {
   int ans = 0;
   while(v != -1 && dist[s] < n) {
     int newv = advance(v);
-    if(newv != -1)
-      v = newv;
-    else
-      v = retreat(v);
-    if(v == t) {
-      v = s;
-      ans += augment(s, t);
-    }
+    if(newv != -1) v = newv;
+    else v = retreat(v);
+    if(v == t) ans += augment(v = s, t);
   }
   return ans;
 }

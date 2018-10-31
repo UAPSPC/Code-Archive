@@ -1,34 +1,40 @@
-// f: The function we compute the transform of.
-// n: The dimension of the function f.
-// s: The skip value, should be set to 1 at the start of the algorithm.
-// r: An n'th primitive root of unity.
-// o: The vector we want to load the output values into.
-using cld = complex<long double>;
-void fft(vector<cld> &f, long long fb, long long n, long long s, vector<cld> &o, long long ob, cld r) {
-  if(n == 1)
-    o[ob] = f[fb];
-  else {
-    fft(f, fb, n / 2, 2 * s, o, ob, pow(r, 2));
-    fft(f, fb + s, n / 2, 2 * s, o, ob + n / 2, pow(r, 2));
-    for(int k = 0; k < n / 2; k++) {
-      auto x = o[ob + k];
-      o[ob + k] = (x + pow(r, k) * o[ob + k + n / 2]) / 2.0L;
-      o[ob + k + n / 2] = (x - pow(r, k) * o[ob + k + n / 2]) / 2.0L;
+using double = ld; // can always try long double if you are concerned
+using complex < ld >= cplx;
+using vector < cplx >= vc;
+// Compute the (I)FFT of f, store in v.
+// f.size() *MUST* be a power of 2
+void fft(const vc &f, vc &v, bool invert) {
+  int n = f.size();
+  assert(n > 0 && (n & (n - 1)) == 0);
+  v.resize(n);
+  for(int i = 0; i < n; ++i) {
+    int r = 0, k = i;
+    for(int j = 1; j < n; j <<= 1, r = (r << 1) | (k & 1), k >>= 1)
+      ;
+    v[i] = f[r];
+  }
+  for(int m = 2; m <= n; m <<= 1) {
+    int mm = m >> 1;
+    cplx zeta = polar<ld>(1, (invert ? 2 : -2) * M_PI / m);
+    for(int k = 0; k < n; k += m) {
+      cplx om = 1;
+      for(int j = 0; j < mm; ++j, om *= zeta) {
+        cplx tl = v[k + j], th = om * v[k + j + mm];
+        v[k + j] = tl + th;
+        v[k + j + mm] = tl - th;
+      }
     }
   }
+  if(invert)
+    for(auto &z: v) z /= ld(n); // normalize for ifft
 }
-vector<cld> fft(vector<cld> &f) {
-  long long n = f.size();
-  cld r(cos(-2 * M_PI / n), sin(-2 * M_PI / n));
-  vector<cld> o(n);
-  fft(f, 0, n, 1, o, 0, r);
-  return o;
-}
-vector<cld> inversefft(vector<cld> &f) {
-  long long n = f.size();
-  for(int k = 0; k < n; k++) f[k] = conj(f[k]);
-  vector<cld> o = fft(f);
-  for(int k = 0; k < n; k++) f[k] = conj(f[k]);
-  for(int k = 0; k < n; k++) o[k] = ((long double)n) * conj(o[k]);
-  return o;
+// Convolve f and g, placing the result in res.
+// f and g should be the same length. If they are not, just pad them
+// up to the nearest power of two after your desired output size.
+void convolve(vc &f, vc &g, vc &res) {
+  vc tmp;
+  fft(f, tmp, false);
+  fft(g, res, false);
+  for(int i = 0; i < n; ++i) tmp[i] *= res[i];
+  fft(tmp, res, true);
 }

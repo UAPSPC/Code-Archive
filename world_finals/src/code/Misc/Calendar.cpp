@@ -6,7 +6,7 @@ public:
   // month is zero based
   int year, month, day;
   Date() {}
-  Date(int year, int month, int day) : year(year), month(month - 1), day(day) {}
+  Date(int year, int month, int day): year(year), month(month - 1), day(day) {}
   bool operator<(const Date &date) const {
     if(year != date.year) return year < date.year;
     if(month != date.month) return month < date.month;

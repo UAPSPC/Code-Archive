@@ -1,7 +1,7 @@
 const double eps = 1e-6;
 struct point3 {
   double x, y, z;
-  point3(double x = 0, double y = 0, double z = 0) : x(x), y(y), z(z) {}
+  point3(double x = 0, double y = 0, double z = 0): x(x), y(y), z(z) {}
   point3 operator+(point3 p) const { return point3(x + p.x, y + p.y, z + p.z); }
   point3 operator*(double k) const { return point3(k * x, k * y, k * z); }
   point3 operator-(point3 p) const { return *this + (p * -1.0); }
@@ -16,7 +16,7 @@ double dot(point3 a, point3 b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
 point3 cross(point3 a, point3 b) { return point3(a.y * b.z - b.y * a.z, b.x * a.z - a.x * b.z, a.x * b.y - b.x * a.y); }
 struct line {
   point3 a, b;
-  line(point3 A = point3(), point3 B = point3()) : a(A), b(B) {}
+  line(point3 A = point3(), point3 B = point3()): a(A), b(B) {}
   // Direction unit vector a -> b
   point3 dir() { return (b - a).normalize(); }
 };
@@ -51,8 +51,8 @@ point3 cpoint_lineseg(line u, point3 p) {
 }
 struct plane {
   point3 n, p;
-  plane(point3 ni = point3(), point3 pi = point3()) : n(ni), p(pi) {}
-  plane(point3 a, point3 b, point3 c) : n(cross(b - a, c - a).normalize()), p(a) {}
+  plane(point3 ni = point3(), point3 pi = point3()): n(ni), p(pi) {}
+  plane(point3 a, point3 b, point3 c): n(cross(b - a, c - a).normalize()), p(a) {}
   // Value of d for the equation ax + by + cz + d = 0
   double d() { return -dot(n, p); }
 };

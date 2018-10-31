@@ -8,7 +8,7 @@ vector<int> a[maxn], b[maxm];
 int matched[maxn], mark[maxm], mate[maxm];
 bool dfs(int v) {
   if(v < 0) return 1;
-  for(int to : a[v])
+  for(int to: a[v])
     if(!mark[to]++ && dfs(mate[to])) return matched[mate[to] = v] = 1;
   return 0;
 }
@@ -17,7 +17,7 @@ void set_mark() {
   memset(mate, -1, sizeof mate);
   memset(mark, 0, sizeof mark);
   for(int i = 0; i < n; ++i)
-    for(int to : a[i])
+    for(int to: a[i])
       if(mate[to] < 0) {
         matched[mate[to] = i] = 1;
         break;

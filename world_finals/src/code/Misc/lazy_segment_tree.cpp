@@ -9,7 +9,7 @@ struct Node {
 };
 const int NO_ACTION = 0; // TODO?
 const int NEUTRAL_QUERY_VALUE = 0; // TODO?
-int N;
+int N; // TODO
 Node allNodes[5 * MAX_N];
 // After generating the segment tree, doesn't use
 // the index specific array
@@ -49,7 +49,7 @@ void ApplyAndPushLazyUpdate(int index, int nodeStart, int nodeEnd) {
 void ApplyLazyChange(int index, int nodeStart, int nodeEnd, int changeStart, int changeEnd, int action) {
   // Make sure the value is updated and moved to children
   ApplyAndPushLazyUpdate(index, nodeStart, nodeEnd);
-  if(nodeEnd < changeStart || nodeStart > changeEnd) { return; }
+  if(nodeEnd < changeStart || nodeStart > changeEnd) return;
   // This index is contained completely
   if(nodeStart >= changeStart && nodeEnd <= changeEnd) {
     // Add the update to this node, then apply
@@ -69,7 +69,7 @@ int Query(int index, int nodeStart, int nodeEnd, int queryStart, int queryEnd) {
   // Make sure the value is updated and moved to children
   ApplyAndPushLazyUpdate(index, nodeStart, nodeEnd);
   // This index is contained completely
-  if(nodeStart >= queryStart && nodeEnd <= queryEnd) { return allNodes[index].value; }
+  if(nodeStart >= queryStart && nodeEnd <= queryEnd) return allNodes[index].value;
   int middle = (nodeStart + nodeEnd) / 2;
   int count = SubQueryMerge(Query(index * 2, nodeStart, middle, queryStart, queryEnd), Query(index * 2 + 1, middle + 1, nodeEnd, queryStart, queryEnd));
   return count;

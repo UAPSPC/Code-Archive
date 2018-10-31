@@ -10,6 +10,7 @@
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{afterpage}
+\usepackage[hidelinks]{hyperref}
 
 \pagestyle{fancy}
 \rhead{\thepage}
@@ -73,71 +74,67 @@
 % -----------------------------------------------------------------------------
 % document begins here
 
-\section{Geometry - 2D Primitives}
+\section{Geometry}
 \codesnippet
     {Basics}
-    {code/Geometry - 2D Primitives/Basics.cpp}
+    {code/Geometry/Basics.cpp}
 \codesnippet
     {Area of intersection of two circles}
-    {code/Geometry - 2D Primitives/Area of intersection of two circles.cpp}
+    {code/Geometry/Area of intersection of two circles.cpp}
 \codesnippet
     {Points of intersection of two circles}
-    {code/Geometry - 2D Primitives/Points of intersection of two circles.cpp}
+    {code/Geometry/Points of intersection of two circles.cpp}
 \codesnippet
     {Line-circle intersection}
-    {code/Geometry - 2D Primitives/Line-circle intersection.cpp}
+    {code/Geometry/Line-circle intersection.cpp}
 \codesnippet
     {Line-line intersection}
-    {code/Geometry - 2D Primitives/Line-line intersection.cpp}
+    {code/Geometry/Line-line intersection.cpp}
 \codesnippet
     {Segment-segment intersection}
-    {code/Geometry - 2D Primitives/Segment-segment intersection.cpp}
+    {code/Geometry/Segment-segment intersection.cpp}
 \codesnippet
     {Parabola-line intersection}
-    {code/Geometry - 2D Primitives/Parabola-line intersection.cpp}
+    {code/Geometry/Parabola-line intersection.cpp}
 \codesnippet
     {Circle described by 3 points}
-    {code/Geometry - 2D Primitives/Circle described by three points.cpp}
+    {code/Geometry/Circle described by three points.cpp}
 \codesnippet
     {Circle described by 3 lines}
-    {code/Geometry - 2D Primitives/Circle described by three lines.cpp}
+    {code/Geometry/Circle described by three lines.cpp}
 \codesnippet
     {Circle described by 2 points and 1 line}
-    {code/Geometry - 2D Primitives/Circle described by two points and one line.cpp}
+    {code/Geometry/Circle described by two points and one line.cpp}
 \codesnippet
     {Circle described by 2 lines and 1 point}
-    {code/Geometry - 2D Primitives/Circle described by two lines and one point.cpp}
+    {code/Geometry/Circle described by two lines and one point.cpp}
 \codesnippet
     {Is left of}
-    {code/Geometry - 2D Primitives/Is Left Of.cpp}
-
-\section{Geometry - 2D Misc}
+    {code/Geometry/Is Left Of.cpp}
 \codesnippet
     {Heron's formula for triangle area}
-    {code/Geometry - 2D Misc/Heron's formula for triangle area.cpp}
+    {code/Geometry/Heron's formula for triangle area.cpp}
 \codesnippet
     {Rectangle in rectangle test}
-    {code/Geometry - 2D Misc/Rectangle in rectangle test.cpp}
+    {code/Geometry/Rectangle in rectangle test.cpp}
 \codesnippet
     {Centroid and area of a simple polygon $O(N)$}
-    {code/Geometry - 2D Misc/Centroid and area of a simple polygon.cpp}
+    {code/Geometry/Centroid and area of a simple polygon.cpp}
 \codesnippet
     {Point in polygon $O(N)$}
-    {code/Geometry - 2D Misc/Point in polygon.cpp}
+    {code/Geometry/Point in polygon.cpp}
 \codesnippet
     {Convex-hull $O(N \log N)$}
-    {code/Geometry - 2D Misc/Convex-hull.cpp}
+    {code/Geometry/Convex-hull.cpp}
 \codesnippet
     {Line in polygon}
-    {code/Geometry - 2D Misc/Line in polygon.cpp}
-
-\section{Geometry - 3D}
+    {code/Geometry/Line in polygon.cpp}
 \codesnippet
-    {Primitives}
-    {code/Geometry - 3D/Primitives.cpp}
+    {3D Primitives}
+    {code/Geometry/3DPrimitives.cpp}
 \codesnippet
     {3D Convex-hull $O(N^2)$}
-    {code/Geometry - 3D/Convex-hull 3D.cpp}
+    {code/Geometry/Convex-hull 3D.cpp}
 
 \section{Combinatorics}
 \codesnippet
@@ -159,58 +156,55 @@
 \section{Graph Theory}
 \codesnippet
     {Fast flow $O(V^2E)$}
-    {code/Graph Theory/Fast flow.cpp}
+    {code/Graph/Fast flow.cpp}
 \codesnippet
     {Flow and negative flow}
-    {code/Graph Theory/Flow and negative flow.cpp}
+    {code/Graph/Flow and negative flow.cpp}
 \codesnippet
     {Min cost max flow}
-    {code/Graph Theory/Min cost max flow.cpp}
+    {code/Graph/Min cost max flow.cpp}
 \codesnippet
     {2-Sat \& strongly connected component $O(V+E)$}
-    {code/Graph Theory/2-Sat and strongly connected component.cpp}
+    {code/Graph/2-Sat and strongly connected component.cpp}
 \codesnippet
     {Bipartite matching, vertex cover, edge cover, disjoint set $O(VE)$}
-    {code/Graph Theory/Bipartite matching, vertex cover, edge cover, disjoint set.cpp}
+    {code/Graph/Bipartite matching, vertex cover, edge cover, disjoint set.cpp}
 \codesnippet
     {Bipartite weighted matching $O(VE^2)$}
-    {code/Graph Theory/Bipartite weighted matching.cpp}
+    {code/Graph/Bipartite weighted matching.cpp}
 \codesnippet
     {Cut edges and 2-edge-connected components $O(V+E)$}
-    {code/Graph Theory/Cut edges and 2-edge-connected components.cpp}
+    {code/Graph/Cut edges and 2-edge-connected components.cpp}
 \codesnippet
     {Cut vertices and 2-connected components $O(V+E)$}
-    {code/Graph Theory/Cut vertices and 2-connected components.cpp}
+    {code/Graph/Cut vertices and 2-connected components.cpp}
 \codesnippet
     {Dijkstra $O(E\log V)$}
-    {code/Graph Theory/Dijkstra.cpp}
+    {code/Graph/Dijkstra.cpp}
 \codesnippet
     {Bellman ford with negative cycle detection}
-    {code/Graph Theory/bellmanford_negativecycle_path.cpp}
+    {code/Graph/bellmanford_negativecycle_path.cpp}
 \codesnippet
     {Minimum spanning tree}
-    {code/Graph Theory/mst.cpp}
+    {code/Graph/mst.cpp}
 \codesnippet
     {Minimum weight Steiner tree $O(|V|*3^{|S|}+|V|^3)$}
-    {code/Graph Theory/Steiner.cpp}
+    {code/Graph/Steiner.cpp}
 
-
+value);
 \section{Number Theory}
 \codesnippet
-    {Sieve of Eratosthenes $O(N \log\log N)$}
-    {code/Number Theory/Sieve of Eratosthenes.cpp}
-\codesnippet
     {Chinese remaindering and ext. Euclidean $O(N \log \max(M_i))$}
-    {code/Number Theory/Chinese remaindering and ext. Euclidean.cpp}
+    {code/NumberTheory/Chinese remaindering and ext. Euclidean.cpp}
 \codesnippet
     {Discrete logarithm solver $O(\sqrt P)$}
-    {code/Number Theory/Discrete logarithm solver.cpp}
+    {code/NumberTheory/Discrete logarithm solver.cpp}
 \codesnippet
     {Euler phi $O(\sqrt n)$}
-    {code/Number Theory/euler_phi.cpp}
+    {code/NumberTheory/euler_phi.cpp}
 \codesnippet
     {Binomial coefficient}
-    {code/Number Theory/binomial.cpp}
+    {code/NumberTheory/binomial.cpp}
 
 \section{String}
 \codesnippet
@@ -222,34 +216,11 @@
 \codesnippet
     {Suffix array $O(N log N)$}
     {code/String/Suffix array.cpp}
-\codesnippet
-    {Trie}
-    {code/String/trie.cpp}
 
 \section{Misc}
 \codesnippet
     {FFT $O(n\log n)$}
     {code/Misc/fft.cpp}
-    \bigskip\noindent
-    Given a function $f: \{0,\dots,n-1\} \rightarrow C$ into the complex
-    numbers, we can write the function uniquely as $f(x) = \sum_{k
-    = 0}^{n-1} a_k z^k$, where $z = e^{2\pi \frac i n}$. The function fft
-    takes an input function $f$ (as a vector of complex numbers),
-    and returns the values $a_0,\dots,a_{n-1}$ in a vector.
-    Conversely, the inversefft function takes the
-    values $a_0,\dots,a_{n-1}$, and returns the function $f$.  The
-    Fourier transform is useful whenever we want to compute a
-    convolution, which is a function $h: \{0,\dots,n-1\} \rightarrow C$ defined
-    in terms of two other functions $f$ and $g$ by $h(m) = \sum_{k =
-    0}^{n-1} f(m) g(k-m)$, where the values of $m$ and $k-m$ are
-    considered modulo $n$. If we write $f = \sum a_k z^k, g = \sum b_k
-    z^k$, and $h = \sum c_k z^k$, then we find $c_k = a_k*z_k$, so that we
-    can compute $h = inversefft(fft(f)*fft(g))$ in $O(n\log(n))$
-    time, rather than the naive $O(n^2)$ time.  Complexity: $O(n
-    \log(n))$, where $n$ is the size of the domain of the input
-    function.  Notes: Watch out for standard floating point
-    inaccuracies, etc. This code only works if your function is
-    defined on a domain of length [$n$], where $n$ is a power of 2.
 \codesnippet
     {Longest ascending subsequence $O(n\log n)$}
     {code/Misc/Longest ascending subsequence.cpp}
@@ -268,24 +239,37 @@
 \codesnippet
     {Cubic equation solver}
     {code/Misc/Cubic equation solver.cpp}
-\javacodesnippet
-    {Calendar}
-    {code/Misc/javaExample.java}
+\codesnippet
+    {Alpha-beta pruning}
+    {code/Misc/Alphabeta.cpp}
 \codesnippet
     {Unbounded maximum stack size}
     {code/Misc/stack_size.cpp}
-\codesnippet
-    {C++ IO Format}
-    {code/Misc/C++ IO format}
 \subsection{Formulas}
 Pick's Theorem: $\displaystyle A=i+\frac b 2 - 1$ ($A$:area, $i$:interior, $b$:boundary points)\\
 Catalan numbers: $C_n=\displaystyle\frac 1 {n+1} {2n \choose n}=\frac{4i-2}{i+1}C_{n-1}=\sum_{i=0}^{n-1}C_iC_{n-1-i},C_0=1$\\
 Triangle: $c^2=a^2+b^2-2ab\cos (\theta_c)$, $\displaystyle s=\frac 1 2(a + b + c)$, $\displaystyle inradius=\sqrt{\frac{(s-a)(s-b)(s-c)}{s}}$, $exradii_a=\displaystyle\sqrt{\frac{s(s-b)(s-c)}{s-a}}$\\
 Spherical cap: $\displaystyle V=\frac{\pi h} 6 (3a^2 + h^2)$, $A=2\pi rh$ ($a$:radius of base of cap, $r$: radius of sphere, $h$: height of cap)
 %TODO
-\plaintextsnippet
-    {Common bugs}
-    {code/Misc/Common bugs}
+\subsection{Submission Checklist}
+\begin{itemize}
+    \setlength\itemsep{-0.5em}
+    \item First to solve is worth nothing, wrong answer costs 20 minutes
+    \item Ensure tests achieve 100\% code coverage
+    \item At least 2 people must independently understand the problem statement
+    \item At least 2 people must understand the solution
+    \item Anything in the statement that you don't understand the importance of?
+    \\\textbf{Preventing WA}
+    \item Edge cases?
+    \item How much precision do you need?
+    \\\textbf{Preventing Crashes}
+    \item Compile with \texttt{-Wall -Wextra}
+    \item Divide by zero? Negative sqrt? Inverse trig domain?
+    \\\textbf{Preventing TLE}
+    \item Stack overflow?
+    \item Infinte loop?
+    \item Make sure you actually use the DP table
+\end{itemize}
 
 % -----------------------------------------------------------------------------
 

@@ -19,7 +19,7 @@ void dfs(int x, int level) {
   // for components only
   comp_stack.push_back(x);
   int t = 0;
-  for(int u : g[x]) {
+  for(int u: g[x]) {
     if(!mark[u]) {
       jad[u] = d[u] = d[x] + 1;
       dfs(u, level + 1);

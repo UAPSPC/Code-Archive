@@ -65,5 +65,5 @@ void wmatching(vector<pair<int, int>> &res) {
   }
   res.clear();
   for(int i = 0; i < m; i++)
-    if(mate[i] != -1) res.push_back(pair<int, int>(mate[i], i));
+    if(mate[i] != -1) res.emplace_back(mate[i], i);
 }

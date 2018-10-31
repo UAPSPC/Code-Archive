@@ -3,11 +3,11 @@
 * Graph: Multiple components, Multiple edges, Loops
 * Geometry: Be careful about +pi,-pi
 * Initialization: Use memset/clear(). Don't expect global
-variables to be zero. Care about multiple tests.
-* Precision and Range: Use long long if necessary. Use
-BigInteger/BigDecimal
+  variables to be zero. Care about multiple tests.
+* Precision and Range: Use long long if necessary
+  Use python for big numbers.
 * Derive recursive formulas that use sum instead of
-multiplication to avoid overflow.
+  multiplication to avoid overflow.
 * Small cases (n=0,1,negative)
 * 0-based <=> 1-based
 * Division by zero. Integer division a/(double)b
@@ -20,6 +20,7 @@ multiplication to avoid overflow.
 * Be careful about -0.0
 * Remove debug info!
 * Output format: Spaces at the end of line. Blank lines. View
-the output in VIM if necessary
+  the output in VIM if necessary
 * Add eps to double before getting floor or round
 * If setting a dp table to Inf when executing to avoid returning to this state, should look at using B/DFS instead!
+* Make sure you actually use the DP table

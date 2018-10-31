@@ -21,7 +21,7 @@ void insertTrie(string &s, int start) {
 }
 // string tmp="";findLongest(root,tmp);
 void findLongest(TrieNode *current, string &s) {
-  for(auto c : current->child)
+  for(auto c: current->child)
     if(c.second->cnt > 1) {
       s.push_back(c.first);
       findLongest(c.second, s);
@@ -34,6 +34,6 @@ void findLongest(TrieNode *current, string &s) {
 }
 void deleteTrie(TrieNode *current) {
   if(current == NULL) return;
-  for(auto c : current->child) deleteTrie(c.second);
+  for(auto c: current->child) deleteTrie(c.second);
   delete current;
 }

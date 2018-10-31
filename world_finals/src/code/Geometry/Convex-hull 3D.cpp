@@ -6,16 +6,15 @@
 // cover all surface of convex hull
 // Each element of hull is a hullFace which has indices of three
 // vertices of a triangle
-bool operator==(const point3 &p, const point3 &q) { return abs(p.x - q.x) < eps && abs(p.y - q.y) < eps && abs(p.z - q.z) < eps; }
-point3 triNormal(const point3 &a, const point3 &b, const point3 &c) { return cross(a, b) + cross(b, c) + cross(c, a); }
-class hullFinder {
-  const vector<point3> &pts;
-public:
-  hullFinder(const vector<point3> &pts_) : pts(pts_), halfE(pts.size(), -1) {}
+bool operator==(point3 p, point3 q) { return abs(p.x - q.x) < eps && abs(p.y - q.y) < eps && abs(p.z - q.z) < eps; }
+point3 triNormal(point3 a, point3 b, point3 c) { return cross(a, b) + cross(b, c) + cross(c, a); }
+struct hullFinder {
+  vector<point3> &pts;
+  hullFinder(vector<point3> &pts_): pts(pts_), halfE(pts.size(), -1) {}
   struct hullFace {
     int u, v, w;
     point3 n;
-    hullFace(int u_, int v_, int w_, const point3 &n_) : u(u_), v(v_), w(w_), n(n_) {}
+    hullFace(int u_, int v_, int w_, point3 &n_): u(u_), v(v_), w(w_), n(n_) {}
   };
   vector<hullFinder::hullFace> findHull() {
     vector<hullFace> hull;
@@ -40,19 +39,18 @@ public:
     addPt(p4);
     for(int i = 2; i < n; ++i)
       if(i != p3 && i != p4) addPt(i);
-    for(list<hullEdge>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-      if(e->u < e->v && e->u < e->f1)
-        hull.push_back(hullFace(e->u, e->v, e->f1, e->n1));
-      else if(e->v < e->u && e->v < e->f2)
-        hull.push_back(hullFace(e->v, e->u, e->f2, e->n2));
+    for(auto e: edges) {
+      if(e.u < e.v && e.u < e.f1)
+        hull.push_back(hullFace(e.u, e.v, e.f1, e.n1));
+      else if(e.v < e.u && e.v < e.f2)
+        hull.push_back(hullFace(e.v, e.u, e.f2, e.n2));
     }
     return hull;
   }
-private:
   struct hullEdge {
     int u, v, f1, f2;
     point3 n1, n2;
-    hullEdge(int u_, int v_) : u(u_), v(v_), f1(-1), f2(-1) {}
+    hullEdge(int u_, int v_): u(u_), v(v_), f1(-1), f2(-1) {}
   };
   list<hullEdge> edges;
   vector<int> halfE;
@@ -65,7 +63,7 @@ private:
     e.n2 = triNormal(pts[e.v], pts[e.u], pts[e.f2]);
   }
   void addPt(int i) {
-    for(list<hullEdge>::iterator e = edges.begin(); e != edges.end(); ++e) {
+    for(auto e = edges.begin(); e != edges.end(); ++e) {
       bool v1 = dot(pts[i] - pts[e->u], e->n1) > eps;
       bool v2 = dot(pts[i] - pts[e->u], e->n2) > eps;
       if(v1 && v2)

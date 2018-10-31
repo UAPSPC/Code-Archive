@@ -1,8 +1,6 @@
 const int MaxN = 205;
-int V;
-struct Edge {
-  int from, to, cost;
-};
+int N; // TODO
+struct Edge { int from, to, cost; };
 vector<Edge> allEdgesFromNode[MaxN];
 // MUST be updated in update loop
 int predecessor[MaxN];
@@ -25,17 +23,16 @@ int ExpandPredecessor(int node) {
 }
 void ExpandNegativeCycle(int node) {
   inNegativeCycle[node] = true;
-  for(Edge& e : allEdgesFromNode[node]) {
+  for(Edge &e: allEdgesFromNode[node])
     if(!inNegativeCycle[e.to]) ExpandNegativeCycle(e.to);
-  }
 }
 void FinishUpBellmanFord() {
   // Go along the predecessor graph
-  for(int i = 0; i < V; ++i) color[i] = White;
+  for(int i = 0; i < N; ++i) color[i] = White;
   // Find all nodes that are part of a negative cycle
-  for(int i = 0; i < V; ++i) ExpandPredecessor(i);
+  for(int i = 0; i < N; ++i) ExpandPredecessor(i);
   // Now, expand from all nodes that are in a negative cycle
   // - they cause all children to become negative cycle nodes
-  for(int i = 0; i < V; ++i)
+  for(int i = 0; i < N; ++i)
     if(inNegativeCycle[i]) ExpandNegativeCycle(i);
 }

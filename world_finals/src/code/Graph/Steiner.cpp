@@ -1,11 +1,11 @@
 // Given a weighted undirected graph G = (V, E) and a subset S of V,
 // finds a minimum weight tree T whose vertices are a superset of S.
 // NP-hard -- this is a pseudo-polynomial algorithm.
-// Minimum stc[(1<<s)-1][v] (0 <= v < n) is weight of min. Steiner tree
-// Minimum stc[i][v] (0 <= v < n) is weight of min. Steiner tree for
-// the i’th subset of Steiner vertices
-// S is the list of Steiner vertices, s = |S|
-// d is the adjacency matrix (use infinities, not -1), and n = |V|
+// Minimum stc[(1<<s)-1][v] (0 <= v < n) is weight of min. Steiner
+// tree Minimum stc[i][v] (0 <= v < n) is weight of min. Steiner tree
+// for the i’th subset of Steiner vertices S is the list of Steiner
+// vertices, s = |S| d is the adjacency matrix (use infinities, not
+// -1), and n = |V|
 const int N = 32;
 const int K = 8;
 int d[N][N], n, S[K], s, stc[1 << K][N];
