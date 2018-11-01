@@ -1,5 +1,5 @@
-#include "../Geometry - 2D Primitives/Is Left Of.cpp"
-#include "../Geometry - 2D Primitives/Line-line intersection.cpp"
+#include "Is Left Of.cpp"
+#include "Line-line intersection.cpp"
 double Lowest = -10000000;
 double Highest = 10000000;
 point InvalidLowerBound = point(Lowest - 1, Lowest - 1);

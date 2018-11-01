@@ -32,9 +32,9 @@ void fft(const vc &f, vc &v, bool invert) {
 // f and g should be the same length. If they are not, just pad them
 // up to the nearest power of two after your desired output size.
 void convolve(vc &f, vc &g, vc &res) {
-  vc tmp;
+  vc tmp(f.size());
   fft(f, tmp, false);
   fft(g, res, false);
-  for(int i = 0; i < n; ++i) tmp[i] *= res[i];
+  for(int i = 0; i < f.size(); ++i) tmp[i] *= res[i];
   fft(tmp, res, true);
 }

@@ -1,7 +1,7 @@
 int inf = 1e9;
 struct state {
   int score() { return 0; } // TODO
-  vector<node> children() { return {}; } // TODO
+  vector<state> children() { return {}; } // TODO
 };
 int ab(state s, int alpha = -inf, int beta = inf, int player = 1) {
   auto ch = s.children();
