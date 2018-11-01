@@ -1,5 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
 const int maxn = 100;
 const int maxk = 10;
 // combination[i][j] = j!/(i!*(j-i)!)
