@@ -1,4 +1,3 @@
-#pragma once
 double eps = 1e-6;
 typedef complex<double> point;
 struct circle {
