@@ -86,3 +86,9 @@ point3 rotate(point3 a, point3 b, point3 p, double theta) {
   point3 perp = cross(b - a, p - o);
   return o + perp * sin(theta) + (p - o) * cos(theta);
 }
+// Signed distance from p to nearest point on surface of box with
+// dimensions b. Positive = outside, negative = inside
+double signed_box_distance(point3 p, point3 b) {
+  point3 d = point3(abs(p.x),abs(p.y),abs(p.z)) - b;
+  return min(max(d.x,max(d.y,d.z)),0.0) + point3(max(d.x,0.0),max(d.y,0.0),max(d.z,0.0)).abs();
+}
