@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 const int maxn = 100;
 const int maxk = 10;
 // combination[i][j] = j!/(i!*(j-i)!)
@@ -25,17 +27,17 @@ long long rank_comb(int n, vector<int> c) {
 }
 struct comp {
   long long base;
-  comp(long long base): base(base) {}
-  int operator()(const long long &a, const long long &val) { return (base - a) > val; }
+  int operator()(long long a, long long val) { return (base - a) > val; }
 };
 // Returns k-combination of rank 'r' of n objects
 vector<int> unrank_comb(int n, int k, long long r) {
   vector<int> c;
   int prev = -1;
   for(int i = 0; i < k; i++) {
-    long long base = cumsum[k - i - 1][n - prev - 2];
-    prev = n - 1 - (lower_bound(cumsum[k - i - 1], cumsum[k - i - 1] + n - prev - 1, r, comp(base)) - cumsum[k - i - 1]);
-    r -= base - cumsum[k - i - 1][n - prev - 1];
+    int j = k - i - 1;
+    long long base = cumsum[j][n - prev - 2];
+    prev = n - 1 - (lower_bound(cumsum[j], cumsum[j] + n - prev - 1, r, comp{base}) - cumsum[j]);
+    r -= base - cumsum[j][n - prev - 1];
     c.push_back(prev);
   }
   return c;
