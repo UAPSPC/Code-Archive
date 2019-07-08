@@ -16,8 +16,17 @@
    Changes: Changed to use c++
             Used complex<double> for point rather than specialized struct
    -----------------------------------------------------------------
-   Reliability: 0 (Sept 2002)
-                1 successes with current version, on UVA 10065
+   Editor:      Ian DeHaan
+   Date:        July 2019
+   
+   Changes: Fixed it so that it compiles
+            Added reliability
+   -----------------------------------------------------------------
+   Reliability:
+            UVa 10065
+            Kattis polygonarea
+            Kattis convexpolygonarea
+                
    Notes:       Remember to run fabs() on the result if a positive
                 area is desired.
 */
@@ -37,7 +46,7 @@ double cross(const Point &a, const Point &b) {
 double area_poly(const vector<Point> &p){
     double sum = 0;
 
-    for(int i = poly.size()-1, j = 0; j < poly.size(); i = j++)
+    for(int i = p.size()-1, j = 0; j < p.size(); i = j++)
         sum += cross(p[i], p[j]);
 
     return sum/2.0;
