@@ -38,9 +38,9 @@ void visit(int x){
   for(size_t i = 0; i < g[x].size(); i++)
     if(dfsnum[g[x][i]] == -1){
       visit(g[x][i]);
-      low[x] <?= low[g[x][i]];
+      low[x] = min(low[x], low[g[x][i]]);
     } else if(!done[g[x][i]])
-      low[x] <?= dfsnum[g[x][i]];
+      low[x] = min(low[x], dfsnum[g[x][i]]);
 
   if(low[x] == dfsnum[x]){
     VI c; int y;
