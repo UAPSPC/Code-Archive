@@ -63,8 +63,8 @@ int circ_lineseg_isect(Circle c, Point a, Point b,
   double d = dist_2d(a,b);
   int res = circ_iline_isect(c,a,b,r1,r2);
   
-  if(res == 2 && dist_2d(a,*r2)+dist_2d(*r2,b) != d) res--;
-  if(res >= 1 && dist_2d(a,*r1)+dist_2d(*r1,b) != d){
+  if(res == 2 && fabs(dist_2d(a,*r2)+dist_2d(*r2,b) - d) > EPS) res--;
+  if(res >= 1 && fabs(dist_2d(a,*r1)+dist_2d(*r1,b) - d) > EPS){
     *r1 = *r2;
     res--;
   }
