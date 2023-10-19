@@ -56,7 +56,7 @@ std::vector<int> GeneratePrefixTable(std::string &pattern) {
 
 int KmpMatch(std::string &text, std::string &pattern) {
   std::vector<int> prefix = GeneratePrefixTable(pattern);
-  int q = 0;
+  int q = -1;
   for (int i = 0; i < text.size(); ++i) {
     while (-1 < q && pattern[q+1] != text[i]) q = prefix[q];
     if (pattern[q+1] == text[i]) ++q;
